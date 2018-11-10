@@ -16,14 +16,17 @@ public class AsteroidSpawner : MonoBehaviour
     private int minAsteroidsSpawn = 3;
     [SerializeField]
     private int maxAsteroidsSpawn = 6;
-    [SerializeField]
 
+    [SerializeField]
     private int minFragments = 2;
     [SerializeField]
     private int maxFragments = 3;
+
+    private Camera cam;
     
 	void Start()
     {
+        cam = Camera.main;
         SpawnAsteroids();
 	}
 
@@ -44,7 +47,13 @@ public class AsteroidSpawner : MonoBehaviour
         {
             int asteroidTypeIdx = Random.Range(0, asteroidPrefabs.Count);
             int asteroidSize = Random.Range(1, asteroidSizes + 1);
-            Vector2 randomPositionOnScreen = Camera.main.ViewportToWorldPoint(new Vector2(Random.value, Random.value));
+
+            float randomViewportX = Random.Range(0f, 1f);
+            float randomViewportY = Random.Range(0f, 1f);
+            Vector2 randomPositionOnScreen = Camera.main.ScreenToViewportPoint(new Vector3(Random.Range(0, Screen.width), Random.Range(0, Screen.height), 0f));
+
+            Debug.Log(randomPositionOnScreen);
+
             GameObject asteroid = Instantiate(asteroidPrefabs[asteroidTypeIdx], randomPositionOnScreen, Quaternion.Euler(Vector3.zero)) as GameObject;
             asteroid.GetComponent<AsteroidController>().Spawn(this, asteroidSize);
         }

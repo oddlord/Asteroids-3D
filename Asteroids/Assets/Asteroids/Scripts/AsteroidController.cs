@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class AsteroidController : MonoBehaviour
 {
-    [SerializeField]
-    AsteroidSpawner asteroidSpawner;
+    private AsteroidSpawner asteroidSpawner;
 
     private int size;
 
@@ -26,9 +25,12 @@ public class AsteroidController : MonoBehaviour
         asteroidSpawner.SpawnFragments(transform.position, size);
         Destroy(this.gameObject);
     }
-	
-	void Update()
+
+    private void OnTriggerEnter(Collider other)
     {
-		
-	}
+        if (other.gameObject.tag == "Projectile")
+        {
+            Explode();
+        }
+    }
 }

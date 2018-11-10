@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 114730235275678616}
   m_Layer: 0
   m_Name: Asteroid 1
-  m_TagString: Enemy
+  m_TagString: Asteroid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -118,8 +118,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1166830386393056}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.08, y: 0.091257, z: 0}
-  m_LocalScale: {x: 2.2707, y: 2.2707, z: 2.2707}
+  m_LocalPosition: {x: 917, y: 340, z: 0}
+  m_LocalScale: {x: 155.99242, y: 155.99242, z: 155.99242}
   m_Children:
   - {fileID: 4452950531790994}
   m_Father: {fileID: 0}
@@ -330,6 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ded25f7eef0f3e04abcac083ebff7e86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  asteroidSpawner: {fileID: 0}
 --- !u!114 &114891496652979616
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -342,7 +343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tumble: 0.25
-  velocity: 2
+  velocity: 200
 --- !u!135 &135741129276421262
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -350,7 +351,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1166830386393056}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.9180559
