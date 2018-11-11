@@ -2155,13 +2155,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d04f37aa9b2a6e438988a05086423d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thrust: 1000
+  thrust: 800
   projectileEmitter: {fileID: 1777868916835736}
   projectilePrefab: {fileID: 1057706461830188, guid: 304b7cd2b1b5ab540ad271f899a927ab,
     type: 2}
   shootForce: 2000
   shootRate: 0.25
-  projectileLife: 2
+  projectileLife: 1
 --- !u!114 &114570092118516474
 MonoBehaviour:
   m_ObjectHideFlags: 1
