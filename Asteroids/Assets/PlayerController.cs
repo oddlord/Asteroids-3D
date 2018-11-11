@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour {
             movementDirection = joystick.Direction;
 
             int touchCount = Input.touchCount;
-            if (touchCount > 1 || (touchCount == 1 && !joystick.isDragging()))
+            if (touchCount > 1 || (touchCount == 1 && !joystick.isDragged()))
             {
                 if (GetLastShootDeltaTime() >= shootRate)
                 {
@@ -94,7 +94,7 @@ public class PlayerController : MonoBehaviour {
             childRB.constraints = RigidbodyConstraints.FreezePositionZ;
             RandomMover rm = child.AddComponent<RandomMover>();
             rm.SetTumble(1f);
-            rm.SetVelocity(0f);
+            rm.SetVelocity(15f);
             rm.SetBaseVelocity(rb.velocity);
             child.AddComponent<ScreenWrapper>();
         }

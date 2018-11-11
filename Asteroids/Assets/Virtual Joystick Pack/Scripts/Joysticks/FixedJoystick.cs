@@ -14,7 +14,7 @@ public class FixedJoystick : Joystick
         dragging = false;
     }
 
-    public bool isDragging()
+    public bool isDragged()
     {
         return dragging;
     }

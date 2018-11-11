@@ -188,8 +188,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4740065028117294}
   - component: {fileID: 54979025074957356}
-  - component: {fileID: 114374723401200094}
-  - component: {fileID: 114303095716736614}
   - component: {fileID: 114681224105025380}
   - component: {fileID: 65856736648368282}
   - component: {fileID: 114792568838752480}
@@ -2145,36 +2143,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.2168427, y: 1, z: 3.3719256}
   m_Center: {x: 0.007438181, y: -5.9941854e-16, z: 0.31131476}
---- !u!114 &114303095716736614
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1349581304368612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 246d7d2c0c404e847b8af9f83d8dd365, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joystick: {fileID: 0}
-  laserEmitter: {fileID: 1258139948374262}
-  laserPrefab: {fileID: 1549845906409722, guid: bc41ff54426c2a548a79aa97c3b46231,
-    type: 2}
-  laserForce: 20000
-  shootRate: 0.75
---- !u!114 &114374723401200094
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1349581304368612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4bd9fd85ad59a84f9c06cbd46e65e05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joystick: {fileID: 0}
-  thrust: 10000
 --- !u!114 &114681224105025380
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2200,7 +2168,6 @@ MonoBehaviour:
   joystick: {fileID: 0}
   thrust: 10000
   laserEmitter: {fileID: 1258139948374262}
-  laserPrefab: {fileID: 1549845906409722, guid: bc41ff54426c2a548a79aa97c3b46231,
-    type: 2}
+  laserPrefab: {fileID: 104536, guid: 380c292c725b8e84ba5201a1b548832a, type: 2}
   laserForce: 20000
   shootRate: 0.5

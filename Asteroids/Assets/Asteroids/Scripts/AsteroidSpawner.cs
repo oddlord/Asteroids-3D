@@ -4,6 +4,24 @@ using UnityEngine;
 
 public class AsteroidSpawner : MonoBehaviour
 {
+    #region Singleton Pattern
+    private static AsteroidSpawner instance;
+
+    public static AsteroidSpawner Instance { get { return instance; } }
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+    #endregion
+
     [SerializeField]
     private List<GameObject> asteroidPrefabs;
 
@@ -23,8 +41,8 @@ public class AsteroidSpawner : MonoBehaviour
     private int maxFragments = 3;
 
     private Camera cam;
-    
-	void Start()
+
+    void Start()
     {
         cam = Camera.main;
         SpawnAsteroids();
@@ -48,11 +66,25 @@ public class AsteroidSpawner : MonoBehaviour
             int asteroidTypeIdx = Random.Range(0, asteroidPrefabs.Count);
             int asteroidSize = Random.Range(1, asteroidSizes + 1);
 
-            float randomViewportX = Random.Range(0f, 1f);
-            float randomViewportY = Random.Range(0f, 1f);
-            Vector2 randomPositionOnScreen = Camera.main.ScreenToViewportPoint(new Vector3(Random.Range(0, Screen.width), Random.Range(0, Screen.height), 0f));
-
-            Debug.Log(randomPositionOnScreen);
+            // This is to spawn asteroids on the borders of the screen
+            // side represent left/right or bottom/top of the non-random axis
+            float side = Random.Range(0, 2);
+            // randomPos is the position in the random axis
+            float randomPos = Random.Range(0f, 1f);
+            float randomXPos;
+            float randomYPos;
+            // choose randomly which side to be random and which not
+            if (Random.value < 0.5f)
+            {
+                randomXPos = randomPos;
+                randomYPos = side;
+            }
+            else
+            {
+                randomXPos = side;
+                randomYPos = randomPos;
+            }
+            Vector3 randomPositionOnScreen = Camera.main.ViewportToWorldPoint(new Vector3(randomXPos, randomYPos, -Camera.main.transform.position.z));
 
             GameObject asteroid = Instantiate(asteroidPrefabs[asteroidTypeIdx], randomPositionOnScreen, Quaternion.Euler(Vector3.zero)) as GameObject;
             asteroid.GetComponent<AsteroidController>().Spawn(this, asteroidSize);
