@@ -40,11 +40,8 @@ public class AsteroidSpawner : MonoBehaviour
     [SerializeField]
     private int maxFragments = 3;
 
-    private Camera cam;
-
     void Start()
     {
-        cam = Camera.main;
         SpawnAsteroids();
 	}
 
@@ -87,7 +84,7 @@ public class AsteroidSpawner : MonoBehaviour
             Vector3 randomPositionOnScreen = Camera.main.ViewportToWorldPoint(new Vector3(randomXPos, randomYPos, -Camera.main.transform.position.z));
 
             GameObject asteroid = Instantiate(asteroidPrefabs[asteroidTypeIdx], randomPositionOnScreen, Quaternion.Euler(Vector3.zero)) as GameObject;
-            asteroid.GetComponent<AsteroidController>().Spawn(this, asteroidSize);
+            asteroid.GetComponent<AsteroidManager>().Spawn(asteroidSize);
         }
     }
 
@@ -106,7 +103,7 @@ public class AsteroidSpawner : MonoBehaviour
         {
             int asteroidTypeIdx = Random.Range(0, asteroidPrefabs.Count);
             GameObject asteroid = Instantiate(asteroidPrefabs[asteroidTypeIdx], spawnPosition, Quaternion.Euler(Vector3.zero)) as GameObject;
-            asteroid.GetComponent<AsteroidController>().Spawn(this, fragmentSize);
+            asteroid.GetComponent<AsteroidManager>().Spawn(fragmentSize);
         }
     }
 }

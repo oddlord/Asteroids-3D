@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 117243259}
   - component: {fileID: 117243258}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -363,6 +363,53 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -45, z: 0}
+--- !u!1001 &715829246
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4288521165601332, guid: 9012745145c9266488186ce03b231c93, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 573
+      objectReference: {fileID: 0}
+    - target: {fileID: 4288521165601332, guid: 9012745145c9266488186ce03b231c93, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4288521165601332, guid: 9012745145c9266488186ce03b231c93, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 1.2411
+      objectReference: {fileID: 0}
+    - target: {fileID: 4288521165601332, guid: 9012745145c9266488186ce03b231c93, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4288521165601332, guid: 9012745145c9266488186ce03b231c93, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4288521165601332, guid: 9012745145c9266488186ce03b231c93, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4288521165601332, guid: 9012745145c9266488186ce03b231c93, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4288521165601332, guid: 9012745145c9266488186ce03b231c93, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114376054889140214, guid: 9012745145c9266488186ce03b231c93,
+        type: 2}
+      propertyPath: joystick
+      value: 
+      objectReference: {fileID: 1521933196}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9012745145c9266488186ce03b231c93, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &928122372
 Prefab:
   m_ObjectHideFlags: 0
@@ -503,59 +550,6 @@ Prefab:
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce5089f3caa5bb042a4d4c23a427bc82, type: 2}
-  m_IsPrefabAsset: 0
---- !u!1001 &1159026263
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4740065028117294, guid: ac9b06ae586a3ca4ca13bb02675aa11e, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 573
-      objectReference: {fileID: 0}
-    - target: {fileID: 4740065028117294, guid: ac9b06ae586a3ca4ca13bb02675aa11e, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 295
-      objectReference: {fileID: 0}
-    - target: {fileID: 4740065028117294, guid: ac9b06ae586a3ca4ca13bb02675aa11e, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 1.2411
-      objectReference: {fileID: 0}
-    - target: {fileID: 4740065028117294, guid: ac9b06ae586a3ca4ca13bb02675aa11e, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4740065028117294, guid: ac9b06ae586a3ca4ca13bb02675aa11e, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4740065028117294, guid: ac9b06ae586a3ca4ca13bb02675aa11e, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4740065028117294, guid: ac9b06ae586a3ca4ca13bb02675aa11e, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4740065028117294, guid: ac9b06ae586a3ca4ca13bb02675aa11e, type: 2}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114792568838752480, guid: ac9b06ae586a3ca4ca13bb02675aa11e,
-        type: 2}
-      propertyPath: joystick
-      value: 
-      objectReference: {fileID: 1521933196}
-    - target: {fileID: 114792568838752480, guid: ac9b06ae586a3ca4ca13bb02675aa11e,
-        type: 2}
-      propertyPath: laserPrefab
-      value: 
-      objectReference: {fileID: 1549845906409722, guid: bc41ff54426c2a548a79aa97c3b46231,
-        type: 2}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ac9b06ae586a3ca4ca13bb02675aa11e, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &1225001573
 GameObject:
@@ -751,6 +745,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f638524b2facf844f8ea0188637da13c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerTag: Player
+  asteroidTag: Asteroid
+  projectileTag: Projectile
+  playerShipTag: PlayerShip
+  shipModuleTag: ShipModule
 --- !u!1 &2146951079
 GameObject:
   m_ObjectHideFlags: 0
