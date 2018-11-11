@@ -6,7 +6,7 @@ public class AsteroidManager : MonoBehaviour
 
     void SetSize(int s)
     {
-        transform.localScale *= Mathf.Pow(AsteroidSpawner.Instance.GetFragmentRatio(), AsteroidSpawner.Instance.GetAsteroidSizes() - s);
+        transform.localScale *= Mathf.Pow(AsteroidSpawner.Instance.GetFragmentRatio(), 3 - s);
         size = s;
     }
 

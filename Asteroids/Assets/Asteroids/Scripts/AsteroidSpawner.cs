@@ -26,8 +26,6 @@ public class AsteroidSpawner : MonoBehaviour
     private List<GameObject> asteroidPrefabs;
 
     [SerializeField]
-    private int asteroidSizes = 3;
-    [SerializeField]
     private float fragmentRatio = 0.5f;
 
     [SerializeField]
@@ -45,11 +43,6 @@ public class AsteroidSpawner : MonoBehaviour
         SpawnAsteroids();
 	}
 
-    public int GetAsteroidSizes()
-    {
-        return asteroidSizes;
-    }
-
     public float GetFragmentRatio()
     {
         return fragmentRatio;
@@ -61,7 +54,7 @@ public class AsteroidSpawner : MonoBehaviour
         for (int i = 0; i < asteroidsCount; i++)
         {
             int asteroidTypeIdx = Random.Range(0, asteroidPrefabs.Count);
-            int asteroidSize = Random.Range(1, asteroidSizes + 1);
+            int asteroidSize = Random.Range(1, 4);
 
             // This is to spawn asteroids on the borders of the screen
             // side represent left/right or bottom/top of the non-random axis

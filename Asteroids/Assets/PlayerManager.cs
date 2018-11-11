@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class PlayerManager : MonoBehaviour
     private float respawnTime = 2f;
     [SerializeField]
     private float spawnInvulnerabilityTime = 2f;
+    [SerializeField]
+    private float invulnerabilityBlinkInterval = 0.1f;
     [SerializeField]
     private float explodeTumble = 2f;
     [SerializeField]
@@ -67,16 +70,37 @@ public class PlayerManager : MonoBehaviour
     private void Spawn()
     {
         GameManager.Instance.SpawnPlayer();
-        // TODO: add shield effect
         dead = false;
         spawned = true;
         lastSpawned = Time.time;
+        CallBlinkCoroutine();
     }
 
     private void SpawnEnd()
     {
-        // TODO: remove shield effect
         spawned = false;
+    }
+
+    private void CallBlinkCoroutine()
+    {
+        Renderer[] renderers = playerShip.GetComponentsInChildren<Renderer>();
+        foreach (Renderer rend in renderers)
+        {
+            StartCoroutine("Blink", rend);
+        }
+    }
+
+    IEnumerator Blink(Renderer rend)
+    {
+        Renderer[] renderer = playerShip.GetComponentsInChildren<Renderer>();
+        float endTime = Time.time + spawnInvulnerabilityTime;
+        while (Time.time < endTime)
+        {
+            rend.enabled = false;
+            yield return new WaitForSeconds(invulnerabilityBlinkInterval);
+            rend.enabled = true;
+            yield return new WaitForSeconds(invulnerabilityBlinkInterval);
+        }
     }
 
     private void Update()
@@ -149,7 +173,7 @@ public class PlayerManager : MonoBehaviour
 
     public void UpdateScore(int size)
     {
-        score += size*10;
+        score += GameManager.Instance.GetAsteroidScore(size);
         GameManager.Instance.UpdateScore(score);
     }
 }

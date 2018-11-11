@@ -28,6 +28,13 @@ public class GameManager : MonoBehaviour
     private Transform player;
 
     [SerializeField]
+    private int largeAsteroidScore = 20;
+    [SerializeField]
+    private int mediumAsteroidScore = 50;
+    [SerializeField]
+    private int smallAsteroidScore = 100;
+
+    [SerializeField]
     private string playerTag = "Player";
     [SerializeField]
     private string asteroidTag = "Asteroid";
@@ -58,6 +65,24 @@ public class GameManager : MonoBehaviour
 
         Vector3 screenCenter = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, -Camera.main.transform.position.z));
         player.position = screenCenter;
+    }
+
+    public int GetAsteroidScore(int size)
+    {
+        int score = 0;
+        if (size == 3)
+        {
+            score = largeAsteroidScore;
+        }
+        else if (size == 2)
+        {
+            score = mediumAsteroidScore;
+        }
+        else if (size == 1)
+        {
+            score = smallAsteroidScore;
+        }
+        return score;
     }
 
     public string GetPlayerTag()
