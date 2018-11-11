@@ -24,6 +24,10 @@ public class AsteroidSpawner : MonoBehaviour
 
     [SerializeField]
     private List<GameObject> asteroidPrefabs;
+    [SerializeField]
+    private float randomRotationTumble = 0.25f;
+    [SerializeField]
+    private float randomMovementVelocity = 10f;
 
     [SerializeField]
     private float fragmentRatio = 0.5f;
@@ -48,7 +52,17 @@ public class AsteroidSpawner : MonoBehaviour
         return fragmentRatio;
     }
 
-    void SpawnAsteroids()
+    private void SpawnAsteroid(int asteroidTypeIdx, Vector3 spawnPosition, int size)
+    {
+        GameObject asteroid = Instantiate(asteroidPrefabs[asteroidTypeIdx], spawnPosition, Quaternion.Euler(Vector3.zero)) as GameObject;
+
+        asteroid.GetComponent<AsteroidManager>().Spawn(size);
+        RandomMover randomMover = asteroid.GetComponent<RandomMover>();
+        randomMover.SetTumble(randomRotationTumble);
+        randomMover.SetVelocity(randomMovementVelocity);
+    }
+
+    private void SpawnAsteroids()
     {
         int asteroidsCount = Random.Range(minAsteroidsSpawn, maxAsteroidsSpawn + 1);
         for (int i = 0; i < asteroidsCount; i++)
@@ -74,10 +88,9 @@ public class AsteroidSpawner : MonoBehaviour
                 randomXPos = side;
                 randomYPos = randomPos;
             }
-            Vector3 randomPositionOnScreen = Camera.main.ViewportToWorldPoint(new Vector3(randomXPos, randomYPos, -Camera.main.transform.position.z));
+            Vector3 randomPositionOnScreenBorder = Camera.main.ViewportToWorldPoint(new Vector3(randomXPos, randomYPos, -Camera.main.transform.position.z));
 
-            GameObject asteroid = Instantiate(asteroidPrefabs[asteroidTypeIdx], randomPositionOnScreen, Quaternion.Euler(Vector3.zero)) as GameObject;
-            asteroid.GetComponent<AsteroidManager>().Spawn(asteroidSize);
+            SpawnAsteroid(asteroidTypeIdx, randomPositionOnScreenBorder, asteroidSize);
         }
     }
 
@@ -87,6 +100,7 @@ public class AsteroidSpawner : MonoBehaviour
         if (originalAsteroidSize == 1)
         {
             // the asteroid was already of the smallest size
+            // and should generate no fragments
             return;
         }
         fragmentSize = originalAsteroidSize - 1;
@@ -95,8 +109,7 @@ public class AsteroidSpawner : MonoBehaviour
         for (int i = 0; i < fragmentCount; i++)
         {
             int asteroidTypeIdx = Random.Range(0, asteroidPrefabs.Count);
-            GameObject asteroid = Instantiate(asteroidPrefabs[asteroidTypeIdx], spawnPosition, Quaternion.Euler(Vector3.zero)) as GameObject;
-            asteroid.GetComponent<AsteroidManager>().Spawn(fragmentSize);
+            SpawnAsteroid(asteroidTypeIdx, spawnPosition, fragmentSize);
         }
     }
 }

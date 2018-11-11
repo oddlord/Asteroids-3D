@@ -584,6 +584,7 @@ MonoBehaviour:
   initialLives: 3
   respawnTime: 2
   spawnInvulnerabilityTime: 2
+  invulnerabilityBlinkInterval: 0.1
   explodeTumble: 5
   explodeForce: 30
 --- !u!4 &831734269
@@ -745,7 +746,6 @@ MonoBehaviour:
   - {fileID: 1166830386393056, guid: 92c634d3c0dd49144a62e80d75526643, type: 2}
   - {fileID: 1480423346471078, guid: ff5e467797f5c1e4094eb6cfd613bf66, type: 2}
   - {fileID: 1473638733302444, guid: ab042542f72b4d549bb09463be81fca6, type: 2}
-  asteroidSizes: 3
   fragmentRatio: 0.5
   minAsteroidsSpawn: 3
   maxAsteroidsSpawn: 5
@@ -899,6 +899,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 117243258}
   player: {fileID: 831734269}
+  largeAsteroidScore: 20
+  mediumAsteroidScore: 50
+  smallAsteroidScore: 100
   playerTag: Player
   asteroidTag: Asteroid
   projectileTag: Projectile

@@ -2,10 +2,8 @@
 
 public class RandomMover : MonoBehaviour
 {
-    [SerializeField]
-    private float tumble = 0.25f;
-    [SerializeField]
-    private float velocity = 1f;
+    private float tumble;
+    private float velocity;
 
     private Vector3 baseVelocity = Vector3.zero;
     private float baseVelocityDampeningFactor = 0.5f;

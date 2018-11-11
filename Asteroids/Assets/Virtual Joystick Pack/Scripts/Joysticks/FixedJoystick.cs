@@ -25,17 +25,9 @@ public class FixedJoystick : Joystick
     Vector2 joystickPosition = Vector2.zero;
     private Camera cam = new Camera();
 
-    private bool dragging;
-
     void Start()
     {
         joystickPosition = RectTransformUtility.WorldToScreenPoint(cam, background.position);
-        dragging = false;
-    }
-
-    public bool isDragged()
-    {
-        return dragging;
     }
 
     public override void OnDrag(PointerEventData eventData)
@@ -49,13 +41,11 @@ public class FixedJoystick : Joystick
     public override void OnPointerDown(PointerEventData eventData)
     {
         OnDrag(eventData);
-        dragging = true;
     }
 
     public override void OnPointerUp(PointerEventData eventData)
     {
         inputVector = Vector2.zero;
         handle.anchoredPosition = Vector2.zero;
-        dragging = false;
     }
 }

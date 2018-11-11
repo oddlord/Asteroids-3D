@@ -92,7 +92,6 @@ public class PlayerManager : MonoBehaviour
 
     IEnumerator Blink(Renderer rend)
     {
-        Renderer[] renderer = playerShip.GetComponentsInChildren<Renderer>();
         float endTime = Time.time + spawnInvulnerabilityTime;
         while (Time.time < endTime)
         {

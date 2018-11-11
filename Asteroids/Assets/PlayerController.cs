@@ -3,16 +3,18 @@
 public class PlayerController : MonoBehaviour {
 
     [SerializeField]
-    private float thrust = 10000f;
+    private float thrust = 1000f;
 
     [SerializeField]
-    private GameObject laserEmitter;
+    private GameObject projectileEmitter;
     [SerializeField]
-    private GameObject laserPrefab;
+    private GameObject projectilePrefab;
     [SerializeField]
-    private float laserForce = 20000f;
+    private float shootForce = 2000f;
     [SerializeField]
-    private float shootRate = 0.5f; // how often, in secs, the laser can be shot
+    private float shootRate = 0.25f; // how often, in secs, the laser can be shot
+    [SerializeField]
+    private float projectileLife = 1f;
     
     private PlayerManager playerManager;
     private FixedJoystick joystick;
@@ -40,13 +42,13 @@ public class PlayerController : MonoBehaviour {
 
     private void Shoot()
     {
-        GameObject bullet = Instantiate(laserPrefab, laserEmitter.transform.position, laserEmitter.transform.rotation * Quaternion.Euler(90, 0, 0)) as GameObject;
+        GameObject bullet = Instantiate(projectilePrefab, projectileEmitter.transform.position, projectileEmitter.transform.rotation * Quaternion.Euler(90, 0, 0)) as GameObject;
         bullet.transform.SetParent(playerManager.transform);
 
         Rigidbody bulletRB = bullet.GetComponent<Rigidbody>();
-        bulletRB.AddForce(transform.forward * laserForce);
+        bulletRB.AddForce(transform.forward * shootForce);
 
-        Destroy(bullet, 3f);
+        Destroy(bullet, projectileLife);
 
         lastShoot = Time.time;
     }
@@ -68,9 +70,12 @@ public class PlayerController : MonoBehaviour {
             movementDirection = joystick.Direction;
 
             int touchCount = Input.touchCount;
-            if (touchCount > 1 || (touchCount == 1 && !joystick.isDragged()))
+            for (int i = 0; i < Input.touchCount; i++)
             {
-                if (GetShootDeltaTime() >= shootRate)
+                Touch touch = Input.GetTouch(i);
+                bool touchedJoystick = RectTransformUtility.RectangleContainsScreenPoint(joystick.GetComponent<RectTransform>(), touch.position);
+                bool touchBegan = touch.phase == TouchPhase.Began;
+                if (!touchedJoystick && touchBegan)
                 {
                     Shoot();
                 }
