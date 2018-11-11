@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -22,7 +23,9 @@ public class GameManager : MonoBehaviour
     #endregion
 
     [SerializeField]
-    Text scoreText;
+    private Text scoreText;
+    [SerializeField]
+    private Transform player;
 
     [SerializeField]
     private string playerTag = "Player";
@@ -34,6 +37,28 @@ public class GameManager : MonoBehaviour
     private string playerShipTag = "PlayerShip";
     [SerializeField]
     private string shipModuleTag = "ShipModule";
+
+    public void SpawnPlayer()
+    {
+        for (int i = 0; i < player.childCount; i++)
+        {
+            GameObject child = player.GetChild(i).gameObject;
+            Destroy(child);
+        }
+        
+        PlayerManager playerManager = player.GetComponent<PlayerManager>();
+
+        GameObject playerShipPrefab = playerManager.GetPlayerShipPrefab();
+        GameObject playerShip = Instantiate(playerShipPrefab, playerShipPrefab.transform.position, playerShipPrefab.transform.rotation) as GameObject;
+        playerShip.transform.SetParent(player, false);
+
+        playerManager.SetPlayerShip(playerShip.transform);
+        playerShip.GetComponent<PlayerController>().SetPlayerManager(playerManager);
+        playerShip.GetComponent<PlayerCollider>().SetPlayerManager(playerManager);
+
+        Vector3 screenCenter = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, -Camera.main.transform.position.z));
+        player.position = screenCenter;
+    }
 
     public string GetPlayerTag()
     {

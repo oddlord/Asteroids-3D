@@ -3,6 +3,25 @@ using UnityEngine.EventSystems;
 
 public class FixedJoystick : Joystick
 {
+    #region Singleton Pattern
+    private static FixedJoystick instance;
+
+    public static FixedJoystick Instance { get { return instance; } }
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+    #endregion
+
+
     Vector2 joystickPosition = Vector2.zero;
     private Camera cam = new Camera();
 

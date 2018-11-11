@@ -88,15 +88,15 @@ public class AsteroidSpawner : MonoBehaviour
         }
     }
 
-    public void SpawnFragments(Vector3 spawnPosition, int size)
+    public void SpawnFragments(Vector3 spawnPosition, int originalAsteroidSize)
     {
         int fragmentSize;
-        if (size == 1)
+        if (originalAsteroidSize == 1)
         {
             // the asteroid was already of the smallest size
             return;
         }
-        fragmentSize = size - 1;
+        fragmentSize = originalAsteroidSize - 1;
 
         int fragmentCount = Random.Range(minFragments, maxFragments + 1);
         for (int i = 0; i < fragmentCount; i++)

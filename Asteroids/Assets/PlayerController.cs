@@ -1,11 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-
-    [SerializeField]
-    private FixedJoystick joystick;
 
     [SerializeField]
     private float thrust = 10000f;
@@ -19,22 +14,28 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private float shootRate = 0.5f; // how often, in secs, the laser can be shot
     
-    PlayerManager playerManager;
+    private PlayerManager playerManager;
+    private FixedJoystick joystick;
 
-    Rigidbody rb;
+    private Rigidbody rb;
     private Vector2 movementDirection;
 
     private float lastShoot;
 
     private void Start()
     {
-        playerManager = GetComponentInParent<PlayerManager>();
+        joystick = FixedJoystick.Instance;
 
         rb = GetComponent<Rigidbody>();
         movementDirection = new Vector2(0, 0);
 
         // shooting should be enabled right away
-        lastShoot = Time.time - shootRate;
+        lastShoot = -shootRate;
+    }
+
+    public void SetPlayerManager(PlayerManager pm)
+    {
+        playerManager = pm;
     }
 
     private void Shoot()
@@ -50,7 +51,7 @@ public class PlayerController : MonoBehaviour {
         lastShoot = Time.time;
     }
 
-    private float GetLastShootDeltaTime()
+    private float GetShootDeltaTime()
     {
         return (Time.time - lastShoot);
     }
@@ -62,14 +63,14 @@ public class PlayerController : MonoBehaviour {
 
     void Update()
     {
-        if (!playerManager.isDead())
+        if (!playerManager.IsDead())
         {
             movementDirection = joystick.Direction;
 
             int touchCount = Input.touchCount;
             if (touchCount > 1 || (touchCount == 1 && !joystick.isDragged()))
             {
-                if (GetLastShootDeltaTime() >= shootRate)
+                if (GetShootDeltaTime() >= shootRate)
                 {
                     Shoot();
                 }

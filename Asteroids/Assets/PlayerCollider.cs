@@ -1,19 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerCollider : MonoBehaviour {
 
     PlayerManager playerManager;
 
-    private void Start()
+    public void SetPlayerManager(PlayerManager pm)
     {
-        playerManager = GetComponentInParent<PlayerManager>();
+        playerManager = pm;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!playerManager.isDead() && other.gameObject.tag == "Asteroid")
+        if (!playerManager.IsDead() && !playerManager.IsSpawned() && other.gameObject.tag == "Asteroid")
         {
             playerManager.Die();
         }
