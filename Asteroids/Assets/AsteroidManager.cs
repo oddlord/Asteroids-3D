@@ -23,6 +23,6 @@ public class AsteroidManager : MonoBehaviour
     public void Explode()
     {
         AsteroidSpawner.Instance.SpawnFragments(transform.position, size);
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 }

@@ -3,24 +3,31 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    [Header("Player Ship")]
     [SerializeField]
     private GameObject playerShipPrefab;
+
+    [Header("Lives")]
     [SerializeField]
     private RectTransform livesCount;
     [SerializeField]
     private GameObject lifeIconPrefab;
     [SerializeField]
     private int initialLives = 3;
+
+    [Header("Respawn")]
     [SerializeField]
     private float respawnTime = 2f;
     [SerializeField]
     private float spawnInvulnerabilityTime = 2f;
     [SerializeField]
     private float invulnerabilityBlinkInterval = 0.1f;
+
+    [Header("Explosion")]
     [SerializeField]
-    private float explodeTumble = 2f;
+    private float fragmentsAngularVelocity = 2f;
     [SerializeField]
-    private float explodeForce = 20f;
+    private float fragmentsMovementVelocity = 5f;
 
     Transform playerShip;
 
@@ -140,6 +147,18 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    private void RemoveLife()
+    {
+        lives--;
+        UpdateLivesCount();
+    }
+
+    private void AddLife()
+    {
+        lives++;
+        UpdateLivesCount();
+    }
+
     public void Die()
     {
         Rigidbody playerShipRB = playerShip.GetComponent<Rigidbody>();
@@ -154,8 +173,8 @@ public class PlayerManager : MonoBehaviour
                 childRB.drag = 0f;
                 childRB.constraints = RigidbodyConstraints.FreezePositionZ;
                 RandomMover rm = child.AddComponent<RandomMover>();
-                rm.SetTumble(explodeTumble);
-                rm.SetVelocity(explodeForce);
+                rm.SetAngularVelocity(fragmentsAngularVelocity);
+                rm.SetVelocity(fragmentsMovementVelocity);
                 rm.SetBaseVelocity(playerShipRB.velocity);
                 child.AddComponent<ScreenWrapper>();
             }
@@ -166,13 +185,20 @@ public class PlayerManager : MonoBehaviour
         dead = true;
         lastDied = Time.time;
 
-        lives--;
-        UpdateLivesCount();
+        RemoveLife();
     }
 
     public void UpdateScore(int size)
     {
+        int oldScore = score;
         score += GameManager.Instance.GetAsteroidScore(size);
+
+        int pointsForNewLife = GameManager.Instance.GetPointsForNewLife();
+        if ((score / pointsForNewLife) > (oldScore / pointsForNewLife))
+        {
+            AddLife();
+        }
+
         GameManager.Instance.UpdateScore(score);
     }
 }

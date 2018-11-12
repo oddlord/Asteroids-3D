@@ -22,18 +22,25 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    [Header("UI")]
     [SerializeField]
     private Text scoreText;
+    
+    [Header("Player")]
     [SerializeField]
     private Transform player;
 
+    [Header("Scores")]
     [SerializeField]
     private int largeAsteroidScore = 20;
     [SerializeField]
     private int mediumAsteroidScore = 50;
     [SerializeField]
     private int smallAsteroidScore = 100;
+    [SerializeField]
+    private int pointsForNewLife = 10000;
 
+    [Header("Tags")]
     [SerializeField]
     private string playerTag = "Player";
     [SerializeField]
@@ -81,8 +88,17 @@ public class GameManager : MonoBehaviour
         else if (size == 1)
         {
             score = smallAsteroidScore;
+        } else if (size > 3)
+        {
+            // just in case
+            score = size * 100;
         }
         return score;
+    }
+
+    public int GetPointsForNewLife()
+    {
+        return pointsForNewLife;
     }
 
     public string GetPlayerTag()
