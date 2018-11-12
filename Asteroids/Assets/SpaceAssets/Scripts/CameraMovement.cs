@@ -20,7 +20,7 @@ public class CameraMovement : MonoBehaviour {
     }
 	
 	void Update () {
-        if (cameraSpeed != 0f)
+        if (cameraSpeed > 0)
         {
             //Assign the current position using a variable to set the position
             currentScrollPosition += Time.deltaTime;
