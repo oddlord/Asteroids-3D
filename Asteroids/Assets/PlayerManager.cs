@@ -25,6 +25,8 @@ public class PlayerManager : MonoBehaviour
 
     [Header("Explosion")]
     [SerializeField]
+    private float fragmentMass = 1f;
+    [SerializeField]
     private float fragmentsAngularVelocity = 2f;
     [SerializeField]
     private float fragmentsMovementVelocity = 5f;
@@ -169,13 +171,15 @@ public class PlayerManager : MonoBehaviour
             if (child.tag == GameManager.Instance.GetShipModuleTag())
             {
                 Rigidbody childRB = child.AddComponent<Rigidbody>();
-                childRB.useGravity = false;
+                childRB.mass = fragmentMass;
                 childRB.drag = 0f;
+                childRB.angularDrag = 0f;
+                childRB.useGravity = false;
                 childRB.constraints = RigidbodyConstraints.FreezePositionZ;
-                RandomMover rm = child.AddComponent<RandomMover>();
-                rm.SetAngularVelocity(fragmentsAngularVelocity);
-                rm.SetVelocity(fragmentsMovementVelocity);
-                rm.SetBaseVelocity(playerShipRB.velocity);
+                RandomMover randomMover = child.AddComponent<RandomMover>();
+                randomMover.SetAngularVelocity(fragmentsAngularVelocity);
+                randomMover.SetVelocity(fragmentsMovementVelocity);
+                randomMover.SetBaseVelocity(playerShipRB.velocity);
                 child.AddComponent<ScreenWrapper>();
             }
         }

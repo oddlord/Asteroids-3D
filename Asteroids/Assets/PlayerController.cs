@@ -3,6 +3,9 @@
 public class PlayerController : MonoBehaviour {
 
     [SerializeField]
+    private float xRotation = 180f;
+
+    [SerializeField]
     private float thrust = 500f;
 
     [SerializeField]

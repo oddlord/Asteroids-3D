@@ -22,23 +22,31 @@ public class AsteroidSpawner : MonoBehaviour
     }
     #endregion
 
+    [Header("Asteroid Prefabs")]
     [SerializeField]
     private List<GameObject> asteroidPrefabs;
+    
+    [Header("Asteroid Physics")]
+    [SerializeField]
+    private float asteroidMass = 100f;
     [SerializeField]
     private float angularVelocity = 0.25f;
     [SerializeField]
     private float movementVelocity = 5f;
-    [SerializeField]
-    private float fragmentVelocityIncreaseFactor = 0.5f;
 
-    [SerializeField]
-    private float fragmentRatio = 0.5f;
-
+    [Header("Initial Asteroids")]
     [SerializeField]
     private int minInitialAsteroids = 3;
     [SerializeField]
     private int maxInitialAsteroids = 4;
 
+    [Header("Fragments")]
+    [SerializeField]
+    private float fragmentVelocityIncreaseFactor = 0.5f;
+    [SerializeField]
+    private float fragmentRatio = 0.5f;
+
+    [Header("Fragments Spawning")]
     [SerializeField]
     private int minFragments = 2;
     [SerializeField]
@@ -79,11 +87,22 @@ public class AsteroidSpawner : MonoBehaviour
     {
         GameObject asteroid = Instantiate(asteroidPrefabs[asteroidTypeIdx], spawnPosition, Random.rotation) as GameObject;
         asteroid.transform.SetParent(transform);
+        asteroid.tag = GameManager.Instance.GetAsteroidTag();
 
-        asteroid.GetComponent<AsteroidManager>().Spawn(size);
-        RandomMover randomMover = asteroid.GetComponent<RandomMover>();
+        Rigidbody asteroidRB = asteroid.AddComponent<Rigidbody>();
+        asteroidRB.mass = asteroidMass;
+        asteroidRB.drag = 0f;
+        asteroidRB.angularDrag = 0f;
+        asteroidRB.useGravity = false;
+        asteroidRB.constraints = RigidbodyConstraints.FreezePositionZ;
+        RandomMover randomMover = asteroid.AddComponent<RandomMover>();
         randomMover.SetAngularVelocity(angularVelocity);
         randomMover.SetVelocity(velocity);
+        asteroid.AddComponent<ScreenWrapper>();
+        AsteroidManager asteroidManager = asteroid.AddComponent<AsteroidManager>();
+        asteroidManager.Spawn(size);
+        asteroid.AddComponent<AsteroidCollider>();
+
 
         if (waitRespawnTime)
         {
