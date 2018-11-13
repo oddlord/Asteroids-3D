@@ -152,7 +152,6 @@ public class AsteroidSpawner : MonoBehaviour
                 {
                     fragmentVelocity += fragmentVelocity * fragmentVelocityIncreaseFactor;
                 }
-                Debug.Log(fragmentVelocity);
                 SpawnAsteroid(asteroidTypeIdx, spawnPosition, fragmentSize, fragmentVelocity, false);
             }
         }

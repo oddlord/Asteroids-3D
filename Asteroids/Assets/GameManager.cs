@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
 
     [Header("UI")]
     [SerializeField]
+    private GameObject joystick;
+    [SerializeField]
     private Text scoreText;
     
     [Header("Player")]
@@ -52,6 +54,29 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private string shipModuleTag = "ShipModule";
 
+    [Header("Device")]
+    [SerializeField]
+    private Device device;
+
+    public enum Device
+    {
+        Mobile,
+        PC
+    }
+
+    private void Start()
+    {
+        if (device == Device.Mobile)
+        {
+            joystick.SetActive(true);
+        }
+    }
+
+    public FixedJoystick GetJoystick()
+    {
+        return joystick.GetComponent<FixedJoystick>();
+    }
+
     public void SpawnPlayer()
     {
         for (int i = 0; i < player.childCount; i++)
@@ -67,8 +92,6 @@ public class GameManager : MonoBehaviour
         playerShip.transform.SetParent(player, false);
 
         playerManager.SetPlayerShip(playerShip.transform);
-        playerShip.GetComponent<PlayerController>().SetPlayerManager(playerManager);
-        playerShip.GetComponent<PlayerCollider>().SetPlayerManager(playerManager);
 
         Vector3 screenCenter = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, -Camera.main.transform.position.z));
         player.position = screenCenter;
@@ -124,6 +147,11 @@ public class GameManager : MonoBehaviour
     public string GetShipModuleTag()
     {
         return shipModuleTag;
+    }
+
+    public Device GetDevice()
+    {
+        return device;
     }
 
     public void UpdateScore(int newScore)

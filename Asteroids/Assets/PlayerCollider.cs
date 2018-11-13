@@ -4,9 +4,9 @@ public class PlayerCollider : MonoBehaviour {
 
     PlayerManager playerManager;
 
-    public void SetPlayerManager(PlayerManager pm)
+    private void Start()
     {
-        playerManager = pm;
+        playerManager = GetComponentInParent<PlayerManager>();
     }
 
     private void OnTriggerEnter(Collider other)
