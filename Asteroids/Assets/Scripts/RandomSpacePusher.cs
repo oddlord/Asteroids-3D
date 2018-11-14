@@ -4,29 +4,31 @@ using UnityEngine;
 
 public class RandomSpacePusher : MonoBehaviour
 {
+    #region Private attributes
     private float velocity = 0f;
     private float angularVelocity = 0f;
 
-    // this is to transfer the velocity of the ship to its fragments when it explodes
-    private Vector3 baseVelocity = Vector3.zero;
+    // this is to transfer the velocity of the exploded object to its fragments
+    private Vector3 momentum = Vector3.zero;
     // this is to adjust how much velocity to transfer (0=none, 1=all)
-    private float baseVelocityDampeningFactor = 0.5f;
+    private float momentumDampeningFactor = 0f;
+    #endregion
 
-    public void SetVelocity(float v)
+    #region Setters
+    public void SetRandomPush(float vel, float aVel)
     {
-        velocity = v;
+        velocity = vel;
+        angularVelocity = aVel;
     }
 
-    public void SetAngularVelocity(float t)
+    public void SetMomentum(Vector3 m, float mDampeningFactor)
     {
-        angularVelocity = t;
+        momentum = m;
+        momentumDampeningFactor = mDampeningFactor;
     }
+    #endregion
 
-    public void SetBaseVelocity(Vector3 bVel)
-    {
-        baseVelocity = bVel;
-    }
-
+    #region Random Push
     public void GivePush()
     {
         Rigidbody rb = GetComponent<Rigidbody>();
@@ -36,6 +38,7 @@ public class RandomSpacePusher : MonoBehaviour
         Vector3 randomDirection = Random.insideUnitCircle;
         randomDirection.Normalize();
 
-        rb.velocity = (baseVelocity * baseVelocityDampeningFactor) + (randomDirection * velocity);
+        rb.velocity = (momentum * momentumDampeningFactor) + (randomDirection * velocity);
     }
+    #endregion
 }

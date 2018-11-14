@@ -2,7 +2,7 @@
 
 public class PlayerController : MonoBehaviour
 {
-
+    #region SerielizeField attributes
     [Header("Ship Generic Settings")]
     [SerializeField]
     private GameObject projectileEmitter;
@@ -20,7 +20,9 @@ public class PlayerController : MonoBehaviour
     private float shootRate = 0.25f;
     [SerializeField]
     private float projectileLife = 1f;
-    
+    #endregion
+
+    #region Private attributes
     private PlayerManager playerManager;
     private FixedJoystick joystick;
 
@@ -31,7 +33,9 @@ public class PlayerController : MonoBehaviour
 
     private bool isMoving;
     private float thrustingForce;
+    #endregion
 
+    #region Start, Update and FixedUpdate
     private void Start()
     {
         playerManager = GetComponentInParent<PlayerManager>();
@@ -45,32 +49,6 @@ public class PlayerController : MonoBehaviour
 
         isMoving = false;
         thrustingForce = 0f;
-    }
-
-    private void Shoot()
-    {
-        GameObject bullet = Instantiate(projectilePrefab, projectileEmitter.transform.position, projectileEmitter.transform.rotation * Quaternion.Euler(90, 0, 0)) as GameObject;
-        bullet.transform.SetParent(playerManager.transform);
-
-        Rigidbody bulletRB = bullet.GetComponent<Rigidbody>();
-        bulletRB.AddForce(transform.up * shootForce);
-
-        Destroy(bullet, projectileLife);
-
-        lastShoot = Time.time;
-    }
-
-    private float GetShootDeltaTime()
-    {
-        return (Time.time - lastShoot);
-    }
-
-    public void StopMovement()
-    {
-        movementDirection = new Vector2(0f, 0f);
-        thrustingForce = 0f;
-        rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
     }
 
     void Update()
@@ -153,4 +131,37 @@ public class PlayerController : MonoBehaviour
             isMoving = false;
         }
     }
+    #endregion
+
+    #region Utility functions
+    private float GetShootDeltaTime()
+    {
+        return (Time.time - lastShoot);
+    }
+    #endregion
+
+    #region Shooting
+    private void Shoot()
+    {
+        GameObject bullet = Instantiate(projectilePrefab, projectileEmitter.transform.position, projectileEmitter.transform.rotation * Quaternion.Euler(90, 0, 0)) as GameObject;
+        bullet.transform.SetParent(playerManager.transform);
+
+        Rigidbody bulletRB = bullet.GetComponent<Rigidbody>();
+        bulletRB.AddForce(transform.up * shootForce);
+
+        Destroy(bullet, projectileLife);
+
+        lastShoot = Time.time;
+    }
+    #endregion
+
+    #region Movement
+    public void StopMovement()
+    {
+        movementDirection = new Vector2(0f, 0f);
+        thrustingForce = 0f;
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+    }
+    #endregion
 }

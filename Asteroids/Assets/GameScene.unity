@@ -818,6 +818,7 @@ GameObject:
   - component: {fileID: 673048601}
   - component: {fileID: 673048600}
   - component: {fileID: 673048599}
+  - component: {fileID: 673048602}
   m_Layer: 5
   m_Name: Score
   m_TagString: Untagged
@@ -901,6 +902,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 673048597}
+--- !u!114 &673048602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 673048597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57ab8ccee5cfc2a4d8c27dc9584ed797, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &690996941
 Prefab:
   m_ObjectHideFlags: 0
@@ -1777,11 +1789,11 @@ MonoBehaviour:
   movementVelocity: 5
   minInitialAsteroids: 3
   maxInitialAsteroids: 4
+  respawnTime: 1
   fragmentVelocityIncreaseFactor: 0.75
   fragmentRatio: 0.5
   minFragments: 2
   maxFragments: 2
-  respawnTime: 1
 --- !u!4 &1137857242
 Transform:
   m_ObjectHideFlags: 0
@@ -2665,6 +2677,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2031544595}
   - component: {fileID: 2031544596}
+  - component: {fileID: 2031544597}
   m_Layer: 5
   m_Name: LivesCount
   m_TagString: Untagged
@@ -2712,3 +2725,14 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
+--- !u!114 &2031544597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2031544594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28ad0e725127482458bf6a240696432d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

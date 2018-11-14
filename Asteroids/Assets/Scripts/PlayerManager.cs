@@ -3,6 +3,25 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    #region Singleton pattern
+    private static PlayerManager instance;
+
+    public static PlayerManager Instance { get { return instance; } }
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+    #endregion
+
+    #region SerializeField attributes
     [Header("Lives")]
     [SerializeField]
     private RectTransform livesCount;
@@ -21,10 +40,14 @@ public class PlayerManager : MonoBehaviour
 
     [Header("Ship Explosion")]
     [SerializeField]
+    private float fragmentsVelocity = 1.5f;
+    [SerializeField]
     private float fragmentsAngularVelocity = 2f;
     [SerializeField]
-    private float fragmentsMovementVelocity = 5f;
+    private float momentumDampeningFactor = 0.5f;
+    #endregion
 
+    #region Private attributes
     GameObject playerShip;
     GameObject playerShipBroken;
 
@@ -39,7 +62,9 @@ public class PlayerManager : MonoBehaviour
 
     private bool spawned;
     private float lastSpawned;
-    
+    #endregion
+
+    #region Start and Update
     void Start()
     {
         for (int i = 0; i < transform.childCount; i++)
@@ -62,8 +87,7 @@ public class PlayerManager : MonoBehaviour
             if (child.tag == GameManager.Instance.GetShipModuleTag())
             {
                 RandomSpacePusher randomPusher = child.GetComponent<RandomSpacePusher>();
-                randomPusher.SetVelocity(fragmentsMovementVelocity);
-                randomPusher.SetAngularVelocity(fragmentsAngularVelocity);
+                randomPusher.SetRandomPush(fragmentsVelocity, fragmentsAngularVelocity);
 
                 fragmentPositions[i] = child.transform.localPosition;
             }
@@ -80,6 +104,21 @@ public class PlayerManager : MonoBehaviour
         Spawn();
     }
 
+    private void Update()
+    {
+        if (dead && lives > 0 && GetDiedDeltaTime() >= respawnTime)
+        {
+            Spawn();
+        }
+
+        if (spawned && GetSpawnedDeltaTime() >= spawnInvulnerabilityTime)
+        {
+            SpawnEnd();
+        }
+    }
+    #endregion
+
+    #region Utility functions
     private float GetDiedDeltaTime()
     {
         return (Time.time - lastDied);
@@ -89,7 +128,9 @@ public class PlayerManager : MonoBehaviour
     {
         return (Time.time - lastSpawned);
     }
+    #endregion
 
+    #region Spawning
     private void Spawn()
     {
         GameManager.Instance.SpawnPlayer(playerShip);
@@ -119,20 +160,44 @@ public class PlayerManager : MonoBehaviour
             yield return new WaitForSeconds(invulnerabilityBlinkInterval);
         }
     }
+    #endregion
 
-    private void Update()
+    #region Death
+    public void Die()
     {
-        if (dead && lives > 0 && GetDiedDeltaTime() >= respawnTime)
+        Rigidbody playerShipRB = playerShip.GetComponent<Rigidbody>();
+        Vector3 baseVelocity = playerShipRB.velocity;
+        Vector3 shipPosition = playerShip.transform.position;
+        Quaternion shipRotation = playerShip.transform.rotation;
+
+        playerShip.GetComponent<PlayerController>().StopMovement();
+        playerShip.SetActive(false);
+
+        playerShipBroken.SetActive(true);
+        playerShipBroken.transform.position = shipPosition;
+        playerShipBroken.transform.rotation = shipRotation;
+
+        for (int i = 0; i < playerShipBroken.transform.childCount; i++)
         {
-            Spawn();
+            GameObject child = playerShipBroken.transform.GetChild(i).gameObject;
+            if (child.tag == GameManager.Instance.GetShipModuleTag())
+            {
+                RandomSpacePusher randomPusher = child.GetComponent<RandomSpacePusher>();
+                randomPusher.SetMomentum(baseVelocity, momentumDampeningFactor);
+                randomPusher.GivePush();
+
+                child.transform.localPosition = fragmentPositions[i];
+            }
         }
 
-        if (spawned && GetSpawnedDeltaTime() >= spawnInvulnerabilityTime)
-        {
-            SpawnEnd();
-        }
+        dead = true;
+        lastDied = Time.time;
+
+        RemoveLife();
     }
+    #endregion
 
+    #region Getters
     public bool IsDead()
     {
         return dead;
@@ -142,7 +207,9 @@ public class PlayerManager : MonoBehaviour
     {
         return spawned;
     }
+    #endregion
 
+    #region Lives
     private void UpdateLivesCount()
     {
         for (int i = 0; i < livesCount.childCount; i++)
@@ -169,51 +236,14 @@ public class PlayerManager : MonoBehaviour
         lives++;
         UpdateLivesCount();
     }
-
-    public void Die()
-    {
-        Rigidbody playerShipRB = playerShip.GetComponent<Rigidbody>();
-        Vector3 baseVelocity = playerShipRB.velocity;
-        Vector3 shipPosition = playerShip.transform.position;
-        Quaternion shipRotation = playerShip.transform.rotation;
-
-        playerShip.GetComponent<PlayerController>().StopMovement();
-        playerShip.SetActive(false);
-
-        playerShipBroken.SetActive(true);
-        playerShipBroken.transform.position = shipPosition;
-        playerShipBroken.transform.rotation = shipRotation;
-
-        for (int i = 0; i < playerShipBroken.transform.childCount; i++)
-        {
-            GameObject child = playerShipBroken.transform.GetChild(i).gameObject;
-            if (child.tag == GameManager.Instance.GetShipModuleTag())
-            {
-                RandomSpacePusher randomPusher = child.GetComponent<RandomSpacePusher>();
-                randomPusher.SetBaseVelocity(baseVelocity);
-                randomPusher.GivePush();
-
-                child.transform.localPosition = fragmentPositions[i];
-            }
-        }
-
-        dead = true;
-        lastDied = Time.time;
-
-        RemoveLife();
-    }
-
+    #endregion
+    
+    #region Score
     public void UpdateScore(int size)
     {
-        int oldScore = score;
-        score += GameManager.Instance.GetAsteroidScore(size);
-
-        int pointsForNewLife = GameManager.Instance.GetPointsForNewLife();
-        if ((score / pointsForNewLife) > (oldScore / pointsForNewLife))
-        {
-            AddLife();
-        }
+        
 
         GameManager.Instance.UpdateScore(score);
     }
+    #endregion
 }

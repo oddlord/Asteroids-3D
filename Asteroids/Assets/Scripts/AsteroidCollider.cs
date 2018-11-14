@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(AsteroidManager))]
+[RequireComponent(typeof(AsteroidController))]
 public class AsteroidCollider : MonoBehaviour {
 
-    AsteroidManager asteroidManager;
+    #region Private attributes
+    AsteroidController asteroidManager;
+    #endregion
 
+    #region Start
     private void Start()
     {
-        asteroidManager = GetComponent<AsteroidManager>();
+        asteroidManager = GetComponent<AsteroidController>();
     }
+    #endregion
 
+    #region Collisions
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == GameManager.Instance.GetProjectileTag())
@@ -17,4 +22,5 @@ public class AsteroidCollider : MonoBehaviour {
             asteroidManager.Explode();
         }
     }
+    #endregion
 }

@@ -1,20 +1,27 @@
 ﻿using UnityEngine;
 
-public class AsteroidManager : MonoBehaviour
+public class AsteroidController : MonoBehaviour
 {
-    private int size;
+    #region Private attributes
+    private Asteroid asteroidData;
+    #endregion
 
+    #region Setters
     void SetSize(int s)
     {
         transform.localScale *= Mathf.Pow(AsteroidSpawner.Instance.GetFragmentRatio(), 3 - s);
         size = s;
     }
+    #endregion
 
+    #region Getters
     public int GetSize()
     {
         return size;
     }
+    #endregion
 
+    #region Spawn and Explode
     public void Spawn(int s)
     {
         SetSize(s);
@@ -25,4 +32,5 @@ public class AsteroidManager : MonoBehaviour
         AsteroidSpawner.Instance.SpawnFragments(transform.position, size);
         Destroy(gameObject);
     }
+    #endregion
 }

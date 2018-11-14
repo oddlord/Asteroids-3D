@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AsteroidSpawner : MonoBehaviour
 {
-    #region Singleton Pattern
+    #region Singleton pattern
     private static AsteroidSpawner instance;
 
     public static AsteroidSpawner Instance { get { return instance; } }
@@ -22,6 +22,7 @@ public class AsteroidSpawner : MonoBehaviour
     }
     #endregion
 
+    #region SerializeField attributes
     [Header("Asteroid Prefabs")]
     [SerializeField]
     private List<GameObject> asteroidPrefabs;
@@ -34,11 +35,15 @@ public class AsteroidSpawner : MonoBehaviour
     [SerializeField]
     private float movementVelocity = 5f;
 
-    [Header("Initial Asteroids")]
+    [Header("Asteroid Spawning")]
+    [SerializeField]
+    private Asteroid asteroidToSpawn;
     [SerializeField]
     private int minInitialAsteroids = 3;
     [SerializeField]
     private int maxInitialAsteroids = 4;
+    [SerializeField]
+    private float respawnTime = 1f;
 
     [Header("Fragments")]
     [SerializeField]
@@ -51,12 +56,13 @@ public class AsteroidSpawner : MonoBehaviour
     private int minFragments = 2;
     [SerializeField]
     private int maxFragments = 2;
+    #endregion
 
-    [SerializeField]
-    private float respawnTime = 1f;
-
+    #region Private attributes
     private int spawnedLast;
+    #endregion
 
+    #region Start and Update
     void Start()
     {
         spawnedLast = 0;
@@ -70,17 +76,20 @@ public class AsteroidSpawner : MonoBehaviour
             SpawnAsteroids(true);
         }
     }
+    #endregion
 
+    #region Getters
+    public float GetFragmentRatio()
+    {
+        return fragmentRatio;
+    }
+    #endregion
+
+    #region Asteroid spawning
     IEnumerator WaitForRespawn(GameObject asteroid)
     {
         yield return new WaitForSeconds(respawnTime);
         asteroid.SetActive(true);
-
-    }
-
-    public float GetFragmentRatio()
-    {
-        return fragmentRatio;
     }
 
     private void SpawnAsteroid(int asteroidTypeIdx, Vector3 spawnPosition, int size, float velocity, bool waitRespawnTime)
@@ -96,11 +105,10 @@ public class AsteroidSpawner : MonoBehaviour
         asteroidRB.useGravity = false;
         asteroidRB.constraints = RigidbodyConstraints.FreezePositionZ;
         RandomSpacePusher randomPusher = asteroid.AddComponent<RandomSpacePusher>();
-        randomPusher.SetVelocity(velocity);
-        randomPusher.SetAngularVelocity(angularVelocity);
+        randomPusher.SetRandomPush(velocity, angularVelocity);
         randomPusher.GivePush();
         asteroid.AddComponent<ScreenWrapper>();
-        AsteroidManager asteroidManager = asteroid.AddComponent<AsteroidManager>();
+        AsteroidController asteroidManager = asteroid.AddComponent<AsteroidController>();
         asteroidManager.Spawn(size);
         asteroid.AddComponent<AsteroidCollider>();
 
@@ -119,8 +127,8 @@ public class AsteroidSpawner : MonoBehaviour
         }
         else
         {
-            // at each subsequent new level
-            // spawn either as the previous level
+            // at each new level
+            // spawn either as in the previous level
             // or one more
             // to increase difficulty as the game goes on
             spawnedLast = Random.Range(this.spawnedLast, this.spawnedLast + 2);
@@ -177,4 +185,5 @@ public class AsteroidSpawner : MonoBehaviour
         // otherwise the asteroid was already of the smallest size
         // and should generate no fragments
     }
+    #endregion
 }

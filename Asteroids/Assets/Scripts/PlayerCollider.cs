@@ -2,13 +2,18 @@
 
 public class PlayerCollider : MonoBehaviour {
 
+    #region Private attributes
     PlayerManager playerManager;
+    #endregion
 
+    #region Start
     private void Start()
     {
         playerManager = GetComponentInParent<PlayerManager>();
     }
+    #endregion
 
+    #region Collisions
     private void OnTriggerEnter(Collider other)
     {
         if (!playerManager.IsDead() && !playerManager.IsSpawned() && other.gameObject.tag == "Asteroid")
@@ -16,4 +21,5 @@ public class PlayerCollider : MonoBehaviour {
             playerManager.Die();
         }
     }
+    #endregion
 }

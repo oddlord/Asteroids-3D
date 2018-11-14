@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    #region Singleton Pattern
+    #region Singleton pattern
     private static GameManager instance;
 
     public static GameManager Instance { get { return instance; } }
@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    #region SerializeField attributes
     [Header("UI")]
     [SerializeField]
     private GameObject joystick;
@@ -59,13 +60,17 @@ public class GameManager : MonoBehaviour
     [Header("Device")]
     [SerializeField]
     private Device device;
+    #endregion
 
+    #region Enums
     public enum Device
     {
         Mobile,
         PC
     }
+    #endregion
 
+    #region Start
     private void Start()
     {
         if (device == Device.Mobile)
@@ -73,16 +78,12 @@ public class GameManager : MonoBehaviour
             joystick.SetActive(true);
         }
     }
+    #endregion
 
+    #region Getters
     public FixedJoystick GetJoystick()
     {
         return joystick.GetComponent<FixedJoystick>();
-    }
-
-    public void SpawnPlayer(GameObject playerShip)
-    {
-        Vector3 screenCenter = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, -Camera.main.transform.position.z));
-        playerShip.transform.position = screenCenter;
     }
 
     public int GetAsteroidScore(int size)
@@ -99,7 +100,8 @@ public class GameManager : MonoBehaviour
         else if (size == 1)
         {
             score = smallAsteroidScore;
-        } else if (size > 3)
+        }
+        else if (size > 3)
         {
             // just in case
             score = size * 100;
@@ -146,9 +148,20 @@ public class GameManager : MonoBehaviour
     {
         return device;
     }
+    #endregion
 
+    #region Player spawn
+    public void SpawnPlayer(GameObject playerShip)
+    {
+        Vector3 screenCenter = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, -Camera.main.transform.position.z));
+        playerShip.transform.position = screenCenter;
+    }
+    #endregion
+
+    #region Score
     public void UpdateScore(int newScore)
     {
         scoreText.text = newScore.ToString();
     }
+    #endregion
 }
