@@ -11,6 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fc116f9a29836f4d8add86bc5368a6a, type: 3}
   m_Name: AsteroidLarge
   m_EditorClassIdentifier: 
+  mass: 100
   scale: 1
   points: 20
-  asteroidToSpawn: {fileID: 11400000, guid: 6467a262adf9257428697ef90b55aad4, type: 2}
+  numberOfFragments: 2
+  fragmentToSpawn: {fileID: 11400000, guid: 6467a262adf9257428697ef90b55aad4, type: 2}

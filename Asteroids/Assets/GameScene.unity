@@ -289,12 +289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joystick: {fileID: 83127841}
-  scoreText: {fileID: 673048600}
   player: {fileID: 1741801457}
-  largeAsteroidScore: 20
-  mediumAsteroidScore: 50
-  smallAsteroidScore: 100
-  pointsForNewLife: 10000
   playerTag: Player
   asteroidTag: Asteroid
   projectileTag: Projectile
@@ -913,6 +908,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57ab8ccee5cfc2a4d8c27dc9584ed797, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pointsForNewLife: 10000
 --- !u!1001 &690996941
 Prefab:
   m_ObjectHideFlags: 0
@@ -1585,6 +1581,11 @@ Prefab:
       propertyPath: livesCount
       value: 
       objectReference: {fileID: 2031544595}
+    - target: {fileID: 114833779681677004, guid: 71bd7a9d73ddeac4aa60511053104e21,
+        type: 2}
+      propertyPath: fragmentsPushForce
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 71bd7a9d73ddeac4aa60511053104e21, type: 2}
   m_IsPrefabParent: 0
@@ -1784,16 +1785,12 @@ MonoBehaviour:
   asteroidPrefabs:
   - {fileID: 1595807874375054, guid: 161b59ac4df6ff0449aa48b08003b757, type: 2}
   - {fileID: 1910047830736364, guid: 35701e2ffed46ca4d8ec5c7cd2899aae, type: 2}
-  asteroidMass: 100
+  pushForce: 50000
   angularVelocity: 0.25
-  movementVelocity: 5
+  asteroidToSpawn: {fileID: 11400000, guid: 7a23e90b05c0c794b9fe7f366d37e7ca, type: 2}
   minInitialAsteroids: 3
   maxInitialAsteroids: 4
   respawnTime: 1
-  fragmentVelocityIncreaseFactor: 0.75
-  fragmentRatio: 0.5
-  minFragments: 2
-  maxFragments: 2
 --- !u!4 &1137857242
 Transform:
   m_ObjectHideFlags: 0
@@ -1801,7 +1798,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1137857240}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.1206765, y: -0.30554375, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2320,7 +2317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 1.7624786
+  m_AspectRatio: 1.659969
 --- !u!114 &1588856186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2736,3 +2733,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ad0e725127482458bf6a240696432d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialLives: 3
+  lifeIconPrefab: {fileID: 1391175601240846, guid: 09d11dbd499ab084f9dd042379682ea4,
+    type: 2}

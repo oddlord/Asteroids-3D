@@ -11,6 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fc116f9a29836f4d8add86bc5368a6a, type: 3}
   m_Name: AsteroidSmall
   m_EditorClassIdentifier: 
+  mass: 45
   scale: 0.25
   points: 100
-  asteroidToSpawn: {fileID: 0}
+  numberOfFragments: 0
+  fragmentToSpawn: {fileID: 11400000}

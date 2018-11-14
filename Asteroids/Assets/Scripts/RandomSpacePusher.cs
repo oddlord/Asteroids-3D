@@ -5,7 +5,7 @@ using UnityEngine;
 public class RandomSpacePusher : MonoBehaviour
 {
     #region Private attributes
-    private float velocity = 0f;
+    private float pushForce = 0f;
     private float angularVelocity = 0f;
 
     // this is to transfer the velocity of the exploded object to its fragments
@@ -15,9 +15,9 @@ public class RandomSpacePusher : MonoBehaviour
     #endregion
 
     #region Setters
-    public void SetRandomPush(float vel, float aVel)
+    public void SetRandomPush(float force, float aVel)
     {
-        velocity = vel;
+        pushForce = force;
         angularVelocity = aVel;
     }
 
@@ -38,7 +38,8 @@ public class RandomSpacePusher : MonoBehaviour
         Vector3 randomDirection = Random.insideUnitCircle;
         randomDirection.Normalize();
 
-        rb.velocity = (momentum * momentumDampeningFactor) + (randomDirection * velocity);
+        rb.velocity = (momentum * momentumDampeningFactor);
+        rb.AddForce(randomDirection * pushForce);
     }
     #endregion
 }

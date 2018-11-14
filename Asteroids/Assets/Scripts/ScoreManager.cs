@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Text))]
@@ -24,6 +22,12 @@ public class ScoreManager : MonoBehaviour
     }
     #endregion
 
+    #region SerializeField attributes
+    [Header("Points rewards")]
+    [SerializeField]
+    private int pointsForNewLife = 10000;
+    #endregion
+
     #region Private attributes
     private int score;
     private Text scoreText;
@@ -42,12 +46,13 @@ public class ScoreManager : MonoBehaviour
     {
         int oldScore = score;
         score += points;
-
-        int pointsForNewLife = GameManager.Instance.GetPointsForNewLife();
+        
         if ((score / pointsForNewLife) > (oldScore / pointsForNewLife))
         {
-            AddLife();
+            LivesManager.Instance.AddLife();
         }
+
+        scoreText.text = score.ToString();
     }
     #endregion
 }
