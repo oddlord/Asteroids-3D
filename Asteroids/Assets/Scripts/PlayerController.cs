@@ -82,7 +82,6 @@ public class PlayerController : MonoBehaviour
             {
                 case GameManager.Device.Mobile:
                     movementDirection = joystick.Direction;
-                    isMoving = false;
                     if (movementDirection.magnitude > 0)
                     {
                         isMoving = true;
@@ -105,10 +104,9 @@ public class PlayerController : MonoBehaviour
 
                 case GameManager.Device.PC:
                     Vector2 mouseScreenPos = Input.mousePosition;
-                    Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPos.x, mouseScreenPos.y, -Camera.main.transform.position.z));
+                    Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPos.x, mouseScreenPos.y, Mathf.Abs(transform.position.z - Camera.main.transform.position.z)));
                     movementDirection = mouseWorldPos - (Vector2)(transform.position);
 
-                    isMoving = false;
                     float cumulativeThrust = 0f;
                     if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.UpArrow))
                     {
@@ -152,6 +150,7 @@ public class PlayerController : MonoBehaviour
         if (isMoving)
         {
             rb.AddForce(movementDirection * thrustingForce);
+            isMoving = false;
         }
     }
 }

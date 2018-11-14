@@ -12,6 +12,6 @@ public class ScreenWrapper : MonoBehaviour
     void Update()
     {
         Vector3 viewportPosition = cam.WorldToViewportPoint(transform.position);
-        transform.position = cam.ViewportToWorldPoint(new Vector3(Mathf.Repeat(viewportPosition.x, 1f), Mathf.Repeat(viewportPosition.y, 1f), -cam.transform.position.z));
+        transform.position = cam.ViewportToWorldPoint(new Vector3(Mathf.Repeat(viewportPosition.x, 1f), Mathf.Repeat(viewportPosition.y, 1f), Mathf.Abs(transform.position.z - cam.transform.position.z)));
     }
 }

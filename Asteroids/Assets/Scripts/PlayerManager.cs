@@ -61,9 +61,9 @@ public class PlayerManager : MonoBehaviour
             GameObject child = playerShipBroken.transform.GetChild(i).gameObject;
             if (child.tag == GameManager.Instance.GetShipModuleTag())
             {
-                RandomMover randomMover = child.GetComponent<RandomMover>();
-                randomMover.SetVelocity(fragmentsMovementVelocity);
-                randomMover.SetAngularVelocity(fragmentsAngularVelocity);
+                RandomSpacePusher randomPusher = child.GetComponent<RandomSpacePusher>();
+                randomPusher.SetVelocity(fragmentsMovementVelocity);
+                randomPusher.SetAngularVelocity(fragmentsAngularVelocity);
 
                 fragmentPositions[i] = child.transform.localPosition;
             }
@@ -189,9 +189,9 @@ public class PlayerManager : MonoBehaviour
             GameObject child = playerShipBroken.transform.GetChild(i).gameObject;
             if (child.tag == GameManager.Instance.GetShipModuleTag())
             {
-                RandomMover randomMover = child.GetComponent<RandomMover>();
-                randomMover.SetBaseVelocity(baseVelocity);
-                randomMover.GivePush();
+                RandomSpacePusher randomPusher = child.GetComponent<RandomSpacePusher>();
+                randomPusher.SetBaseVelocity(baseVelocity);
+                randomPusher.GivePush();
 
                 child.transform.localPosition = fragmentPositions[i];
             }

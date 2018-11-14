@@ -95,10 +95,10 @@ public class AsteroidSpawner : MonoBehaviour
         asteroidRB.angularDrag = 0f;
         asteroidRB.useGravity = false;
         asteroidRB.constraints = RigidbodyConstraints.FreezePositionZ;
-        RandomMover randomMover = asteroid.AddComponent<RandomMover>();
-        randomMover.SetVelocity(velocity);
-        randomMover.SetAngularVelocity(angularVelocity);
-        randomMover.GivePush();
+        RandomSpacePusher randomPusher = asteroid.AddComponent<RandomSpacePusher>();
+        randomPusher.SetVelocity(velocity);
+        randomPusher.SetAngularVelocity(angularVelocity);
+        randomPusher.GivePush();
         asteroid.AddComponent<ScreenWrapper>();
         AsteroidManager asteroidManager = asteroid.AddComponent<AsteroidManager>();
         asteroidManager.Spawn(size);

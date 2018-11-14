@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class RandomMover : MonoBehaviour
+public class RandomSpacePusher : MonoBehaviour
 {
     private float velocity = 0f;
     private float angularVelocity = 0f;
@@ -9,7 +11,7 @@ public class RandomMover : MonoBehaviour
     private Vector3 baseVelocity = Vector3.zero;
     // this is to adjust how much velocity to transfer (0=none, 1=all)
     private float baseVelocityDampeningFactor = 0.5f;
-    
+
     public void SetVelocity(float v)
     {
         velocity = v;
@@ -23,11 +25,6 @@ public class RandomMover : MonoBehaviour
     public void SetBaseVelocity(Vector3 bVel)
     {
         baseVelocity = bVel;
-    }
-
-    void Start()
-    {
-        
     }
 
     public void GivePush()
