@@ -24,8 +24,6 @@ public class PlayerController : MonoBehaviour
     protected PlayerManager playerManager;
     protected Rigidbody rb;
     protected Vector2 movementDirection;
-    
-    protected float thrustingForce;
     #endregion
 
     #region Start, Update and FixedUpdate
@@ -37,8 +35,6 @@ public class PlayerController : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         movementDirection = new Vector2(0, 0);
-        
-        thrustingForce = 0f;
     }
 
     private void Update()
@@ -60,15 +56,11 @@ public class PlayerController : MonoBehaviour
         ApplyThrust();
     }
     #endregion
-
+    
+    #region Virtual methods
     protected virtual void GetMovementInputs() { }
     protected virtual bool GetShootInput() { return false; }
-
-    private void ApplyRotation()
-    {
-        float heading = Mathf.Atan2(movementDirection.x, movementDirection.y);
-        transform.rotation = Quaternion.AngleAxis(heading * Mathf.Rad2Deg, Vector3.back);
-    }
+    #endregion
 
     #region Shooting
     private void Shoot()
@@ -87,22 +79,25 @@ public class PlayerController : MonoBehaviour
 
         projectileRB.AddForce(transform.up * shootForce);
     }
-
-
     #endregion
 
     #region Movement
-    public void StopMovement()
+    private void ApplyRotation()
     {
-        movementDirection = new Vector2(0f, 0f);
-        thrustingForce = 0f;
-        rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
+        float heading = Mathf.Atan2(movementDirection.x, movementDirection.y);
+        transform.rotation = Quaternion.AngleAxis(heading * Mathf.Rad2Deg, Vector3.back);
     }
 
     private void ApplyThrust()
     {
-        rb.AddForce(movementDirection * thrustingForce);
+        rb.AddForce(movementDirection * thrust);
+    }
+
+    public void StopMovement()
+    {
+        movementDirection = new Vector2(0f, 0f);
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
     }
     #endregion
 }

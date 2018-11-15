@@ -16,12 +16,10 @@ public class PlayerControllerMobile : PlayerController {
     }
     #endregion
 
-    #region GetInputs
+    #region Get Inputs
     protected override void GetMovementInputs()
     {
         movementDirection = joystick.Direction;
-        if (movementDirection.magnitude > 0)
-        thrustingForce = movementDirection.magnitude * thrust;
     }
 
     protected override bool GetShootInput()
