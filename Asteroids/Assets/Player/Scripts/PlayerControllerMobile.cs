@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerControllerMobile : PlayerController {
 
     #region Private attributes
-    private FixedJoystick joystick;
+    private SimpleTouchController joystick;
     #endregion
 
     #region Start
@@ -19,7 +19,7 @@ public class PlayerControllerMobile : PlayerController {
     #region Get Inputs
     protected override void GetMovementInputs()
     {
-        movementDirection = joystick.Direction;
+        movementDirection = new Vector2(joystick.GetTouchPosition.x, joystick.GetTouchPosition.y);
     }
 
     protected override bool GetShootInput()

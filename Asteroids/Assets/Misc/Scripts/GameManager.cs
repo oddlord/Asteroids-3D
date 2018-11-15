@@ -69,9 +69,9 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Getters
-    public FixedJoystick GetJoystick()
+    public SimpleTouchController GetJoystick()
     {
-        return joystick.GetComponent<FixedJoystick>();
+        return joystick.GetComponent<SimpleTouchController>();
     }
 
     public string GetPlayerTag()
