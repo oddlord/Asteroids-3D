@@ -22,15 +22,7 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    #region SerializeField attributes
-    [Header("UI")]
-    [SerializeField]
-    private GameObject joystick;
-    
-    [Header("Player")]
-    [SerializeField]
-    private Transform player;
-
+    #region SerializeField attributes    
     [Header("Tags")]
     [SerializeField]
     private string playerTag = "Player";
@@ -44,36 +36,9 @@ public class GameManager : MonoBehaviour
     private string playerShipBrokenTag = "PlayerShipBroken";
     [SerializeField]
     private string shipModuleTag = "ShipModule";
-
-    [Header("Device")]
-    [SerializeField]
-    private Device device;
-    #endregion
-
-    #region Enums
-    public enum Device
-    {
-        Mobile,
-        PC
-    }
-    #endregion
-
-    #region Start
-    private void Start()
-    {
-        if (device == Device.Mobile)
-        {
-            joystick.SetActive(true);
-        }
-    }
     #endregion
 
     #region Getters
-    public SimpleTouchController GetJoystick()
-    {
-        return joystick.GetComponent<SimpleTouchController>();
-    }
-
     public string GetPlayerTag()
     {
         return playerTag;
@@ -102,11 +67,6 @@ public class GameManager : MonoBehaviour
     public string GetShipModuleTag()
     {
         return shipModuleTag;
-    }
-
-    public Device GetDevice()
-    {
-        return device;
     }
     #endregion
 }

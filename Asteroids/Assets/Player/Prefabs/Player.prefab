@@ -1152,7 +1152,7 @@ GameObject:
   - component: {fileID: 114826731965767996}
   - component: {fileID: 114595685893950386}
   - component: {fileID: 114318127443705086}
-  - component: {fileID: 114418722199754852}
+  - component: {fileID: 114454552822274026}
   m_Layer: 0
   m_Name: PlayerShip
   m_TagString: PlayerShip
@@ -10996,20 +10996,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d79ee967e6c89844a40ea245a81b39a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114418722199754852
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1557120248766820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71e30816ca1d9584c82c9248e94256a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thrust: 750
-  projectileEmitter: {fileID: 1762516169774436}
-  shootForce: 2000
 --- !u!114 &114421119767844222
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11109,6 +11095,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 426602fa63850dd4b8dbb152f0d35d62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114454552822274026
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1557120248766820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d04f37aa9b2a6e438988a05086423d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thrust: 500
+  projectileEmitter: {fileID: 1762516169774436}
+  shootForce: 2000
 --- !u!114 &114455942525357448
 MonoBehaviour:
   m_ObjectHideFlags: 1
