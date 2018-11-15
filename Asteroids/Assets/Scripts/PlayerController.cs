@@ -134,7 +134,9 @@ public class PlayerController : MonoBehaviour
         projectile.transform.rotation = projectileEmitter.transform.rotation;
 
         Rigidbody projectileRB = projectile.GetComponent<Rigidbody>();
-        projectileRB.velocity = Vector3.zero;
+        // this is so the momentum of the ship is passed to the projectiles
+        // so a faster ship means faster projectiles
+        projectileRB.velocity = rb.velocity;
         projectileRB.angularVelocity = Vector3.zero;
 
         projectile.SetActive(true);
