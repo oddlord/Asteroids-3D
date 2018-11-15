@@ -17,15 +17,15 @@ public class PlayerControllerMobile : PlayerController {
     #endregion
 
     #region GetInputs
-    protected override void GetInputs()
+    protected override void GetMovementInputs()
     {
-        GameManager.Device device = GameManager.Instance.GetDevice();
-
         movementDirection = joystick.Direction;
         if (movementDirection.magnitude > 0)
         thrustingForce = movementDirection.magnitude * thrust;
+    }
 
-        int touchCount = Input.touchCount;
+    protected override bool GetShootInput()
+    {
         for (int i = 0; i < Input.touchCount; i++)
         {
             Touch touch = Input.GetTouch(i);
@@ -33,9 +33,11 @@ public class PlayerControllerMobile : PlayerController {
             bool touchBegan = touch.phase == TouchPhase.Began;
             if (!touchedJoystick && touchBegan)
             {
-                Shoot();
+                return true;
             }
         }
+
+        return false;
     }
     #endregion
 }

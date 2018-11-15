@@ -45,8 +45,12 @@ public class PlayerController : MonoBehaviour
     {
         if (!playerManager.IsDead())
         {
-            GetInputs();
+            GetMovementInputs();
             movementDirection.Normalize();
+            if (GetShootInput())
+            {
+                Shoot();
+            }
         }
     }
 
@@ -57,7 +61,8 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
-    protected virtual void GetInputs() {}
+    protected virtual void GetMovementInputs() { }
+    protected virtual bool GetShootInput() { return false; }
 
     private void ApplyRotation()
     {
@@ -66,7 +71,7 @@ public class PlayerController : MonoBehaviour
     }
 
     #region Shooting
-    protected void Shoot()
+    private void Shoot()
     {
         GameObject projectile = projectilePool.GetAvailable();
         projectile.transform.position = projectileEmitter.transform.position;

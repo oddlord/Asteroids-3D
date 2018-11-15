@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerControllerKeyboardMouse : PlayerController
 {
-    #region GetInputs
-    protected override void GetInputs()
+    #region Get Inputs
+    protected override void GetMovementInputs()
     {
         Vector2 mouseScreenPos = Input.mousePosition;
         Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(new Vector3(mouseScreenPos.x, mouseScreenPos.y, Mathf.Abs(transform.position.z - Camera.main.transform.position.z)));
@@ -22,11 +22,11 @@ public class PlayerControllerKeyboardMouse : PlayerController
         }
 
         thrustingForce = cumulativeThrust;
+    }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            Shoot();
-        }
+    protected override bool GetShootInput()
+    {
+        return Input.GetMouseButtonDown(0);
     }
     #endregion
 }
