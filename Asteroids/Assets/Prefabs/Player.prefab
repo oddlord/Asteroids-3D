@@ -10718,7 +10718,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialPoolAmount: 15
-  projectilePrefab: {fileID: 1057706461830188, guid: 304b7cd2b1b5ab540ad271f899a927ab,
+  projectilePrefab: {fileID: 1125163668844688, guid: 848de4ef230fd8848ae384a1b4aae4fa,
     type: 2}
   projectileMagazine: {fileID: 4222385478587694}
 --- !u!114 &114319001024631986
@@ -11219,7 +11219,6 @@ MonoBehaviour:
   thrust: 750
   projectileEmitter: {fileID: 1762516169774436}
   shootForce: 2000
-  projectileLife: 1
 --- !u!114 &114541800687379990
 MonoBehaviour:
   m_ObjectHideFlags: 1
