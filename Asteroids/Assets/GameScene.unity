@@ -1773,9 +1773,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3287bedb8048a8d449ac02442bc1a147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asteroidPrefabs:
-  - {fileID: 1595807874375054, guid: 161b59ac4df6ff0449aa48b08003b757, type: 2}
-  - {fileID: 1910047830736364, guid: 35701e2ffed46ca4d8ec5c7cd2899aae, type: 2}
   pushForce: 50000
   angularVelocity: 0.25
   asteroidToSpawn: {fileID: 11400000, guid: 7a23e90b05c0c794b9fe7f366d37e7ca, type: 2}
@@ -2323,7 +2320,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 1.659969
+  m_AspectRatio: 1.6422018
 --- !u!114 &1588856186
 MonoBehaviour:
   m_ObjectHideFlags: 0
