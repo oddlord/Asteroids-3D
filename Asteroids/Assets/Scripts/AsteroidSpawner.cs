@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AsteroidPool))]
 public class AsteroidSpawner : MonoBehaviour
 {
     #region Singleton pattern
@@ -23,10 +24,6 @@ public class AsteroidSpawner : MonoBehaviour
     #endregion
 
     #region SerializeField attributes
-    [Header("Asteroid Prefabs")]
-    [SerializeField]
-    private List<GameObject> asteroidPrefabs;
-    
     [Header("Asteroid Physics")]
     [SerializeField]
     private float pushForce = 50000f;
@@ -45,25 +42,16 @@ public class AsteroidSpawner : MonoBehaviour
     #endregion
 
     #region Private attributes
+    AsteroidPool asteroidPool;
     private int spawnedLastCount;
-    private bool spawning;
     #endregion
 
-    #region Start and Update
+    #region Start
     void Start()
     {
+        asteroidPool = GetComponent<AsteroidPool>();
         spawnedLastCount = 0;
-        spawning = false;
         SpawnAsteroids();
-    }
-
-    private void Update()
-    {
-        if (!spawning && transform.childCount == 0)
-        {
-            spawning = true;
-            StartCoroutine("WaitToRespawn");
-        }
     }
     #endregion
 
@@ -72,28 +60,23 @@ public class AsteroidSpawner : MonoBehaviour
     {
         yield return new WaitForSeconds(respawnTime);
         SpawnAsteroids();
-        spawning = false;
     }
 
-    private void SpawnAsteroid(int asteroidTypeIdx, Vector3 spawnPosition, AsteroidData asteroidData)
+    private void SpawnAsteroid(Vector3 spawnPosition, AsteroidData asteroidData)
     {
-        GameObject asteroid = Instantiate(asteroidPrefabs[asteroidTypeIdx], spawnPosition, Random.rotation) as GameObject;
-        asteroid.transform.SetParent(transform);
-        asteroid.tag = GameManager.Instance.GetAsteroidTag();
+        GameObject asteroid = asteroidPool.GetAvailable();
+        asteroid.transform.position = spawnPosition;
+        asteroid.transform.rotation = Random.rotation;
 
-        Rigidbody asteroidRB = asteroid.AddComponent<Rigidbody>();
+        asteroid.SetActive(true);
+
+        Rigidbody asteroidRB = asteroid.GetComponent<Rigidbody>();
         asteroidRB.mass = asteroidData.GetMass();
-        asteroidRB.drag = 0f;
-        asteroidRB.angularDrag = 0f;
-        asteroidRB.useGravity = false;
-        asteroidRB.constraints = RigidbodyConstraints.FreezePositionZ;
-        RandomSpacePusher randomPusher = asteroid.AddComponent<RandomSpacePusher>();
+        RandomSpacePusher randomPusher = asteroid.GetComponent<RandomSpacePusher>();
         randomPusher.SetRandomPush(pushForce, angularVelocity);
         randomPusher.GivePush();
-        asteroid.AddComponent<ScreenWrapper>();
-        AsteroidController asteroidController = asteroid.AddComponent<AsteroidController>();
-        asteroidController.SetAsteroidData(asteroidData);
-        asteroid.AddComponent<AsteroidCollider>();
+        AsteroidController asteroidController = asteroid.GetComponent<AsteroidController>();
+        asteroidController.SetAsteroidDataAndScale(asteroidData);
     }
 
     private void SpawnAsteroids()
@@ -113,8 +96,6 @@ public class AsteroidSpawner : MonoBehaviour
         
         for (int i = 0; i < spawnedLastCount; i++)
         {
-            int asteroidTypeIdx = Random.Range(0, asteroidPrefabs.Count);
-
             // This is to spawn asteroids on the borders of the screen
             // side represent left/right or bottom/top of the non-random axis
             float side = Random.Range(0, 2);
@@ -135,7 +116,7 @@ public class AsteroidSpawner : MonoBehaviour
             }
             Vector3 randomPositionOnScreenBorder = Camera.main.ViewportToWorldPoint(new Vector3(randomXPos, randomYPos, Mathf.Abs(transform.position.z - Camera.main.transform.position.z)));
 
-            SpawnAsteroid(asteroidTypeIdx, randomPositionOnScreenBorder, asteroidToSpawn);
+            SpawnAsteroid(randomPositionOnScreenBorder, asteroidToSpawn);
         }
     }
 
@@ -147,12 +128,31 @@ public class AsteroidSpawner : MonoBehaviour
             AsteroidData fragmentData = asteroidData.GetFragmentToSpawn();
             for (int i = 0; i < fragmentCount; i++)
             {
-                int asteroidTypeIdx = Random.Range(0, asteroidPrefabs.Count);
-                SpawnAsteroid(asteroidTypeIdx, spawnPosition, fragmentData);
+                SpawnAsteroid(spawnPosition, fragmentData);
             }
         }
-        // otherwise the asteroid was already of the smallest size
-        // and should generate no fragments
+        else
+        {
+            int activeAsteroids = 0;
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                GameObject child = transform.GetChild(i).gameObject;
+                if (child.activeInHierarchy)
+                {
+                    activeAsteroids++;
+                    if (activeAsteroids > 1)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            // only the asteroid being destroyed is active
+            if (activeAsteroids == 1)
+            {
+                StartCoroutine("WaitToRespawn");
+            }
+        }
     }
     #endregion
 }

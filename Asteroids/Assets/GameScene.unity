@@ -1576,16 +1576,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 114833779681677004, guid: 71bd7a9d73ddeac4aa60511053104e21,
-        type: 2}
-      propertyPath: livesCount
-      value: 
-      objectReference: {fileID: 2031544595}
-    - target: {fileID: 114833779681677004, guid: 71bd7a9d73ddeac4aa60511053104e21,
-        type: 2}
-      propertyPath: fragmentsPushForce
-      value: 100
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 71bd7a9d73ddeac4aa60511053104e21, type: 2}
   m_IsPrefabParent: 0
@@ -1764,6 +1754,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1137857242}
   - component: {fileID: 1137857241}
+  - component: {fileID: 1137857243}
   m_Layer: 0
   m_Name: AsteroidSpawner
   m_TagString: Untagged
@@ -1804,6 +1795,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1137857243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1137857240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 453fa833c873c454380066cbc074b46f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialPoolAmount: 20
+  asteroidPrefabs:
+  - {fileID: 1595807874375054, guid: 161b59ac4df6ff0449aa48b08003b757, type: 2}
+  - {fileID: 1910047830736364, guid: 35701e2ffed46ca4d8ec5c7cd2899aae, type: 2}
 --- !u!4 &1197827192 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4438251360550834, guid: 5f24911f9eb596c42ae5c6211ea721cb,
@@ -2675,6 +2681,7 @@ GameObject:
   - component: {fileID: 2031544595}
   - component: {fileID: 2031544596}
   - component: {fileID: 2031544597}
+  - component: {fileID: 2031544598}
   m_Layer: 5
   m_Name: LivesCount
   m_TagString: Untagged
@@ -2734,5 +2741,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialLives: 3
+--- !u!114 &2031544598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2031544594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12586369b779d084d83a97d6651bfd9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialPoolAmount: 4
   lifeIconPrefab: {fileID: 1391175601240846, guid: 09d11dbd499ab084f9dd042379682ea4,
     type: 2}

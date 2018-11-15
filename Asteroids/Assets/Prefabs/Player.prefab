@@ -646,6 +646,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1294177352522790
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4222385478587694}
+  m_Layer: 0
+  m_Name: ProjectileMagazine
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1295839248114348
 GameObject:
   m_ObjectHideFlags: 1
@@ -1137,6 +1152,7 @@ GameObject:
   - component: {fileID: 114538300509502212}
   - component: {fileID: 114826731965767996}
   - component: {fileID: 114595685893950386}
+  - component: {fileID: 114318127443705086}
   m_Layer: 0
   m_Name: PlayerShip
   m_TagString: PlayerShip
@@ -2648,6 +2664,19 @@ Transform:
   m_Father: {fileID: 4791265477386382}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4222385478587694
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1294177352522790}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4537353236330162}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4234195862414558
 Transform:
   m_ObjectHideFlags: 1
@@ -3050,6 +3079,7 @@ Transform:
   m_Children:
   - {fileID: 4609592015272640}
   - {fileID: 4791265477386382}
+  - {fileID: 4222385478587694}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10676,6 +10706,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 426602fa63850dd4b8dbb152f0d35d62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114318127443705086
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1557120248766820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d40085c87713ad340bc82602adf773f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialPoolAmount: 15
+  projectilePrefab: {fileID: 1057706461830188, guid: 304b7cd2b1b5ab540ad271f899a927ab,
+    type: 2}
+  projectileMagazine: {fileID: 4222385478587694}
 --- !u!114 &114319001024631986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11171,12 +11216,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d04f37aa9b2a6e438988a05086423d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileEmitter: {fileID: 1762516169774436}
   thrust: 750
-  projectilePrefab: {fileID: 1057706461830188, guid: 304b7cd2b1b5ab540ad271f899a927ab,
-    type: 2}
+  projectileEmitter: {fileID: 1762516169774436}
   shootForce: 2000
-  shootRate: 0.25
   projectileLife: 1
 --- !u!114 &114541800687379990
 MonoBehaviour:
@@ -11959,15 +12001,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bac20c6467567949b6e79c19c10c27f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  livesCount: {fileID: 0}
-  lifeIconPrefab: {fileID: 1391175601240846, guid: 09d11dbd499ab084f9dd042379682ea4,
-    type: 2}
-  initialLives: 3
   respawnTime: 2
   spawnInvulnerabilityTime: 2
   invulnerabilityBlinkInterval: 0.1
+  fragmentsPushForce: 100
   fragmentsAngularVelocity: 2
-  fragmentsMovementVelocity: 1.5
+  momentumDampeningFactor: 0.5
 --- !u!114 &114835650971663910
 MonoBehaviour:
   m_ObjectHideFlags: 1

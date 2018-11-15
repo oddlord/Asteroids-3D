@@ -4,13 +4,21 @@ public class AsteroidController : MonoBehaviour
 {
     #region Private attributes
     private AsteroidData asteroidData;
+    private Vector3 originalLocalScale;
+    #endregion
+
+    #region Awake
+    private void Awake()
+    {
+        originalLocalScale = transform.localScale;
+    }
     #endregion
 
     #region Setters
-    public void SetAsteroidData(AsteroidData ad)
+    public void SetAsteroidDataAndScale(AsteroidData ad)
     {
         asteroidData = ad;
-        transform.localScale *= asteroidData.GetScale();
+        transform.localScale = originalLocalScale * asteroidData.GetScale();
     }
     #endregion
 
@@ -23,7 +31,7 @@ public class AsteroidController : MonoBehaviour
     {
         AsteroidSpawner.Instance.SpawnFragments(transform.position, asteroidData);
         ScoreManager.Instance.UpdateScore(asteroidData.GetPoints());
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
     #endregion
 }

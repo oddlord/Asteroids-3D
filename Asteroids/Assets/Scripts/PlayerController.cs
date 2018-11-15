@@ -1,35 +1,29 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
+[RequireComponent(typeof(ProjectilePool))]
 public class PlayerController : MonoBehaviour
 {
-    #region SerielizeField attributes
-    [Header("Ship Generic Settings")]
-    [SerializeField]
-    private GameObject projectileEmitter;
-
+    #region SerializeField attributes
     [Header("Thrust")]
     [SerializeField]
     private float thrust = 500f;
 
     [Header("Projectiles")]
     [SerializeField]
-    private GameObject projectilePrefab;
+    private GameObject projectileEmitter;
     [SerializeField]
     private float shootForce = 2000f;
-    [SerializeField]
-    private float shootRate = 0.25f;
-    [SerializeField]
-    private float projectileLife = 1f;
     #endregion
 
     #region Private attributes
     private PlayerManager playerManager;
     private FixedJoystick joystick;
 
+    private ProjectilePool projectilePool;
+
     private Rigidbody rb;
     private Vector2 movementDirection;
-
-    private float lastShoot;
 
     private bool isMoving;
     private float thrustingForce;
@@ -41,11 +35,10 @@ public class PlayerController : MonoBehaviour
         playerManager = GetComponentInParent<PlayerManager>();
         joystick = GameManager.Instance.GetJoystick();
 
+        projectilePool = GetComponent<ProjectilePool>();
+
         rb = GetComponent<Rigidbody>();
         movementDirection = new Vector2(0, 0);
-
-        // shooting should be enabled right away
-        lastShoot = -shootRate;
 
         isMoving = false;
         thrustingForce = 0f;
@@ -133,26 +126,23 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
-    #region Utility functions
-    private float GetShootDeltaTime()
-    {
-        return (Time.time - lastShoot);
-    }
-    #endregion
-
     #region Shooting
     private void Shoot()
     {
-        GameObject bullet = Instantiate(projectilePrefab, projectileEmitter.transform.position, projectileEmitter.transform.rotation * Quaternion.Euler(90, 0, 0)) as GameObject;
-        bullet.transform.SetParent(playerManager.transform);
+        GameObject projectile = projectilePool.GetAvailable();
+        projectile.transform.position = projectileEmitter.transform.position;
+        projectile.transform.rotation = projectileEmitter.transform.rotation;
 
-        Rigidbody bulletRB = bullet.GetComponent<Rigidbody>();
-        bulletRB.AddForce(transform.up * shootForce);
+        Rigidbody projectileRB = projectile.GetComponent<Rigidbody>();
+        projectileRB.velocity = Vector3.zero;
+        projectileRB.angularVelocity = Vector3.zero;
 
-        Destroy(bullet, projectileLife);
+        projectile.SetActive(true);
 
-        lastShoot = Time.time;
+        projectileRB.AddForce(transform.up * shootForce);
     }
+
+
     #endregion
 
     #region Movement

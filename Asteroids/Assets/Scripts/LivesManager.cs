@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(LifeIconPool))]
 public class LivesManager : MonoBehaviour
 {
     #region Singleton pattern
@@ -24,20 +25,18 @@ public class LivesManager : MonoBehaviour
     [Header("Initial Lives")]
     [SerializeField]
     private int initialLives = 3;
-
-    [Header("Life Icon")]
-    [SerializeField]
-    private GameObject lifeIconPrefab;
     #endregion
 
     #region Private attributes
     private int lives;
+    private LifeIconPool lifeIconPool;
     #endregion
 
     #region Start
     private void Start()
     {
         lives = initialLives;
+        lifeIconPool = GetComponent<LifeIconPool>();
         UpdateLivesCount();
     }
     #endregion
@@ -52,16 +51,27 @@ public class LivesManager : MonoBehaviour
     #region Lives update
     private void UpdateLivesCount()
     {
+        int activeLifeIcons = 0;
         for (int i = 0; i < transform.childCount; i++)
         {
             GameObject child = transform.GetChild(i).gameObject;
-            Destroy(child);
+            if (child.activeInHierarchy)
+            {
+                if (activeLifeIcons == lives)
+                {
+                    child.SetActive(false);
+                }
+                else
+                {
+                    activeLifeIcons++;
+                }
+            }
         }
 
-        for (int i = 0; i < lives; i++)
+        for (int i = activeLifeIcons; i < lives; i++)
         {
-            GameObject lifeIcon = Instantiate(lifeIconPrefab, lifeIconPrefab.transform.position, lifeIconPrefab.transform.rotation) as GameObject;
-            lifeIcon.transform.SetParent(transform, false);
+            GameObject lifeIcon = lifeIconPool.GetAvailable();
+            lifeIcon.SetActive(true);
         }
     }
 
