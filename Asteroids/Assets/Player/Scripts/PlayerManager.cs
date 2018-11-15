@@ -43,10 +43,11 @@ public class PlayerManager : MonoBehaviour
     GameObject playerShip;
     GameObject playerShipBroken;
 
+    BoxCollider shipCollider;
+
     Vector3[] fragmentPositions;
 
     private bool dead;
-    private bool spawning;
     #endregion
 
     #region Start
@@ -65,6 +66,9 @@ public class PlayerManager : MonoBehaviour
                 playerShipBroken = child;
             }
         }
+
+        shipCollider = playerShip.GetComponent<BoxCollider>();
+        shipCollider.enabled = false;
 
         // storing the original fragment local position
         fragmentPositions = new Vector3[playerShipBroken.transform.childCount];
@@ -89,11 +93,6 @@ public class PlayerManager : MonoBehaviour
     {
         return dead;
     }
-
-    public bool IsSpawning()
-    {
-        return spawning;
-    }
     #endregion
 
     #region Spawning
@@ -105,7 +104,6 @@ public class PlayerManager : MonoBehaviour
         playerShipBroken.SetActive(false);
 
         dead = false;
-        spawning = true;
         StartCoroutine("SpawnBlink");
     }
 
@@ -120,7 +118,7 @@ public class PlayerManager : MonoBehaviour
             rend.enabled = true;
             yield return new WaitForSeconds(invulnerabilityBlinkInterval);
         }
-        spawning = false;
+        shipCollider.enabled = true;
     }
     #endregion
 
@@ -154,6 +152,7 @@ public class PlayerManager : MonoBehaviour
 
         dead = true;
         LivesManager.Instance.RemoveLife();
+        shipCollider.enabled = false;
         if (!LivesManager.Instance.IsGameover())
         {
             StartCoroutine("WaitToRespawn");

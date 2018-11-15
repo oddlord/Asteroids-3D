@@ -16,7 +16,7 @@ public class PlayerCollider : MonoBehaviour {
     #region Collisions
     private void OnTriggerEnter(Collider other)
     {
-        if (!playerManager.IsDead() && !playerManager.IsSpawning() && other.gameObject.tag == "Asteroid")
+        if (other.gameObject.tag == "Asteroid")
         {
             playerManager.Die();
         }

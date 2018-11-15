@@ -1153,6 +1153,7 @@ GameObject:
   - component: {fileID: 114826731965767996}
   - component: {fileID: 114595685893950386}
   - component: {fileID: 114318127443705086}
+  - component: {fileID: 114655091196645458}
   m_Layer: 0
   m_Name: PlayerShip
   m_TagString: PlayerShip
@@ -11211,7 +11212,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1557120248766820}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d04f37aa9b2a6e438988a05086423d1, type: 3}
   m_Name: 
@@ -11516,6 +11517,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d79ee967e6c89844a40ea245a81b39a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114655091196645458
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1557120248766820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6395e054ca46ac94ea8501b505cb893c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thrust: 750
+  projectileEmitter: {fileID: 1762516169774436}
+  shootForce: 2000
 --- !u!114 &114656891818721160
 MonoBehaviour:
   m_ObjectHideFlags: 1

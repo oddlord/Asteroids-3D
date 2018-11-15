@@ -18,7 +18,7 @@ public class AsteroidCollider : MonoBehaviour
     #region Collisions
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == GameManager.Instance.GetProjectileTag())
+        if (other.gameObject.tag == GameManager.Instance.GetProjectileTag() || other.gameObject.tag == GameManager.Instance.GetPlayerShipTag())
         {
             asteroidController.Explode();
         }
