@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     {
         playerManager = GetComponentInParent<PlayerManager>();
         projectilePool = GetComponent<ProjectilePool>();
+        projectilePool.InitPool();
         rb = GetComponent<Rigidbody>();
     }
 

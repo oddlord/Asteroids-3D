@@ -20,12 +20,19 @@ public class ProjectilePool : MonoBehaviour
     #endregion
 
     #region Init
-    private void InitPool()
+    public void InitPool()
     {
-        pool = new List<GameObject>();
-        for (int i = 0; i < initialPoolAmount; i++)
+        if (pool == null)
         {
-            AddNew();
+            pool = new List<GameObject>();
+            for (int i = 0; i < initialPoolAmount; i++)
+            {
+                AddNew();
+            }
+        }
+        else
+        {
+            Debug.LogError("Pool already initialised!");
         }
     }
     #endregion
@@ -44,11 +51,6 @@ public class ProjectilePool : MonoBehaviour
     #region Get Available
     public GameObject GetAvailable()
     {
-        if (pool == null)
-        {
-            InitPool();
-        }
-
         for (int i = 0; i < pool.Count; i++)
         {
             if (!pool[i].activeInHierarchy)

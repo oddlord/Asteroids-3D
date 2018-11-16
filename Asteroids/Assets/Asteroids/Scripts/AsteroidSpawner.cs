@@ -42,6 +42,7 @@ public class AsteroidSpawner : MonoBehaviour
 
     #region Private attributes
     AsteroidPool asteroidPool;
+    AsteroidAudioSourcePool asteroidAudioSourcePool;
     private int spawnedLastCount;
     #endregion
 
@@ -49,8 +50,18 @@ public class AsteroidSpawner : MonoBehaviour
     void Start()
     {
         asteroidPool = GetComponent<AsteroidPool>();
+        asteroidPool.InitPool();
+        asteroidAudioSourcePool = GetComponent<AsteroidAudioSourcePool>();
+        asteroidAudioSourcePool.InitPool();
         spawnedLastCount = 0;
         SpawnAsteroids();
+    }
+    #endregion
+
+    #region Getters
+    public GameObject GetAvailableAsteroidAudioSource()
+    {
+        return asteroidAudioSourcePool.GetAvailable();
     }
     #endregion
 
@@ -75,7 +86,7 @@ public class AsteroidSpawner : MonoBehaviour
         randomPusher.SetRandomPush(pushForce, angularVelocity);
         randomPusher.GivePush();
         AsteroidController asteroidController = asteroid.GetComponent<AsteroidController>();
-        asteroidController.SetAsteroidDataAndScale(asteroidData);
+        asteroidController.Initialise(asteroidData);
     }
 
     private void SpawnAsteroids()
@@ -136,7 +147,7 @@ public class AsteroidSpawner : MonoBehaviour
             for (int i = 0; i < transform.childCount; i++)
             {
                 GameObject child = transform.GetChild(i).gameObject;
-                if (child.activeInHierarchy)
+                if (child.tag == GameManager.Instance.GetAsteroidTag() && child.activeInHierarchy)
                 {
                     activeAsteroids++;
                     if (activeAsteroids > 1)
@@ -149,7 +160,7 @@ public class AsteroidSpawner : MonoBehaviour
             // only the asteroid being destroyed is active
             if (activeAsteroids == 1)
             {
-                StartCoroutine("WaitToRespawn");
+                StartCoroutine(WaitToRespawn());
             }
         }
     }

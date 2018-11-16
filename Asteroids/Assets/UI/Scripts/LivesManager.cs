@@ -28,15 +28,18 @@ public class LivesManager : MonoBehaviour
     #endregion
 
     #region Private attributes
-    private int lives;
     private LifeIconPool lifeIconPool;
+    private AudioSource audioSource;
+    private int lives;
     #endregion
 
     #region Start
     private void Start()
     {
-        lives = initialLives;
         lifeIconPool = GetComponent<LifeIconPool>();
+        lifeIconPool.InitPool();
+        audioSource = GetComponent<AudioSource>();
+        lives = initialLives;
         UpdateLivesCount();
     }
     #endregion
@@ -84,6 +87,7 @@ public class LivesManager : MonoBehaviour
     public void AddLife()
     {
         lives++;
+        audioSource.Play();
         UpdateLivesCount();
     }
     #endregion

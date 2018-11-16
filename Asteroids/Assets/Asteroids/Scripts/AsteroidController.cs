@@ -5,17 +5,18 @@ public class AsteroidController : MonoBehaviour
     #region Private attributes
     private AsteroidData asteroidData;
     private Vector3 originalLocalScale;
+    private AudioSource audioSource;
     #endregion
 
-    #region Awake
+    #region Awake and Start
     private void Awake()
     {
         originalLocalScale = transform.localScale;
     }
     #endregion
 
-    #region Setters
-    public void SetAsteroidDataAndScale(AsteroidData ad)
+    #region Initialise
+    public void Initialise(AsteroidData ad)
     {
         asteroidData = ad;
         transform.localScale = originalLocalScale * asteroidData.GetScale();
@@ -29,6 +30,10 @@ public class AsteroidController : MonoBehaviour
     #region Explode
     public void Explode()
     {
+        GameObject asteroidAudioSource = AsteroidSpawner.Instance.GetAvailableAsteroidAudioSource();
+        asteroidAudioSource.transform.position = transform.position;
+        asteroidAudioSource.SetActive(true);
+
         AsteroidSpawner.Instance.SpawnFragments(transform.position, asteroidData);
         ScoreManager.Instance.UpdateScore(asteroidData.GetPoints());
         gameObject.SetActive(false);

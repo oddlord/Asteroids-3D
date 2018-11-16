@@ -104,7 +104,7 @@ public class PlayerManager : MonoBehaviour
         playerShipBroken.SetActive(false);
 
         dead = false;
-        StartCoroutine("SpawnBlink");
+        StartCoroutine(SpawnBlink());
     }
 
     IEnumerator SpawnBlink()
@@ -136,6 +136,7 @@ public class PlayerManager : MonoBehaviour
         playerShipBroken.transform.position = shipPosition;
         playerShipBroken.transform.rotation = shipRotation;
         playerShipBroken.SetActive(true);
+        playerShipBroken.GetComponent<AudioSource>().Play();
 
         for (int i = 0; i < playerShipBroken.transform.childCount; i++)
         {
@@ -155,7 +156,7 @@ public class PlayerManager : MonoBehaviour
         shipCollider.enabled = false;
         if (!LivesManager.Instance.IsGameover())
         {
-            StartCoroutine("WaitToRespawn");
+            StartCoroutine(WaitToRespawn());
         }
     }
 

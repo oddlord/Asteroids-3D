@@ -13,7 +13,7 @@ public class ProjectileController : MonoBehaviour
     #region OnEnable
     private void OnEnable()
     {
-        StartCoroutine("WaitToDeactivateProjectile");
+        StartCoroutine(WaitToDeactivateProjectile());
     }
     #endregion
 

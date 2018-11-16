@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class AsteroidPool : MonoBehaviour
+public class AsteroidAudioSourcePool : MonoBehaviour
 {
     #region SerializeField attributes
     [Header("Initial pool amount")]
     [SerializeField]
-    private int initialPoolAmount = 20;
+    private int initialPoolAmount = 5;
 
     [Header("Asteroids")]
     [SerializeField]
-    private List<GameObject> asteroidPrefabs;
+    private GameObject audioSourcePrefab;
     #endregion
 
     #region Private attributes
@@ -38,10 +38,8 @@ public class AsteroidPool : MonoBehaviour
     #region Utility functions
     private GameObject AddNew()
     {
-        int asteroidTypeIdx = Random.Range(0, asteroidPrefabs.Count);
-        GameObject obj = Instantiate(asteroidPrefabs[asteroidTypeIdx]) as GameObject;
+        GameObject obj = Instantiate(audioSourcePrefab) as GameObject;
         obj.transform.SetParent(transform, false);
-        obj.tag = GameManager.Instance.GetAsteroidTag();
         obj.SetActive(false);
         pool.Add(obj);
         return obj;
