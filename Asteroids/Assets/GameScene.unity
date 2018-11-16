@@ -653,6 +653,7 @@ GameObject:
   m_Component:
   - component: {fileID: 579767765}
   - component: {fileID: 579767766}
+  - component: {fileID: 579767767}
   m_Layer: 0
   m_Name: MusicManager
   m_TagString: Untagged
@@ -683,7 +684,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 0a1c7fafacf73b24cac680a00bf69e87, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -740,7 +741,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -753,6 +754,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &579767767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 579767764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6947154096c682148b45f3b7e818a0f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameTracks:
+  - {fileID: 8300000, guid: 0a1c7fafacf73b24cac680a00bf69e87, type: 3}
+  - {fileID: 8300000, guid: 01a38bcd057ecb945ab5f361f80b4d5d, type: 3}
+  - {fileID: 8300000, guid: 54861b62cfebdfb42a83a18a28b17594, type: 3}
 --- !u!1001 &611125115
 Prefab:
   m_ObjectHideFlags: 0

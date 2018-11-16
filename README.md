@@ -23,7 +23,9 @@ The game is playable on PC and mobile and supports both keyboard/mouse and contr
 * Asteroid explosion SFX: [Synthesized_Explosion_06.wav](https://freesound.org/people/RSilveira_88/sounds/216273/) by [RSilveira_88](https://freesound.org/people/RSilveira_88/)
 * Spaceship explosion SFX: [Explosion (Pas).wav](https://freesound.org/people/studiomandragore/sounds/401628/) by [studiomandragore](https://freesound.org/people/studiomandragore/)
 * Extra life SFX: [Bell, Counter, A.wav](https://freesound.org/people/InspectorJ/sounds/415510/) by [InspectorJ](https://freesound.org/people/InspectorJ/)
-* Game music: [Chiptune Roller Derby](http://teknoaxe.com/Link_Code_4.php?q=1266&Genre=Eight) by [TeknoAXE](http://teknoaxe.com)
+* Game music 1: [Chiptune Roller Derby](http://teknoaxe.com/Link_Code_4.php?q=1266&Genre=Eight) by [TeknoAXE](http://teknoaxe.com)
+* Game music 2: [To the Next Destination](http://teknoaxe.com/Link_Code_4.php?q=1155&Genre=Eight) by [TeknoAXE](http://teknoaxe.com)
+* Game music 3: [Revenge of the Atari Overlords](http://teknoaxe.com/Link_Code_4.php?q=1133&Genre=Eight) by [TeknoAXE](http://teknoaxe.com)
 
 ### Fonts
 
