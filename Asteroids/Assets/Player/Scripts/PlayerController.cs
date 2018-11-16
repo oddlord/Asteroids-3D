@@ -82,6 +82,7 @@ public class PlayerController : MonoBehaviour
     private void ApplyThrust(Vector2 movementDirection)
     {
         rb.AddForce(movementDirection * thrust);
+        rb.angularVelocity = Vector3.zero;
     }
 
     public void StopMovement()

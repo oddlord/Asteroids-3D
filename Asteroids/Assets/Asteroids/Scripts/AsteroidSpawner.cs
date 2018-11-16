@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AsteroidPool))]
@@ -34,9 +33,9 @@ public class AsteroidSpawner : MonoBehaviour
     [SerializeField]
     private AsteroidData asteroidToSpawn;
     [SerializeField]
-    private int minInitialAsteroids = 3;
+    private int minInitialAsteroids = 2;
     [SerializeField]
-    private int maxInitialAsteroids = 4;
+    private int maxInitialAsteroids = 3;
     [SerializeField]
     private float respawnTime = 1f;
     #endregion

@@ -19,7 +19,7 @@ public class InputManager : MonoBehaviour
     #region SerializeField attributes
     [Header("Joystick")]
     [SerializeField]
-    private SimpleTouchController joystick;
+    private GameObject virtualJoystickPrefab;
 
     [Header("Input mode")]
     [SerializeField]
@@ -28,6 +28,7 @@ public class InputManager : MonoBehaviour
 
     #region Private attributes
     private InputAdapter playerInput;
+    private SimpleTouchController virtualJoystick;
     #endregion
 
     #region Enums
@@ -41,14 +42,15 @@ public class InputManager : MonoBehaviour
     #region Start
     void Start()
     {
-        joystick.gameObject.SetActive(false);
 		switch (device)
         {
             case Device.PC:
                 playerInput = gameObject.AddComponent<InputAdapterPC>();
                 break;
             case Device.MOBILE:
-                joystick.gameObject.SetActive(true);
+                GameObject joystick = Instantiate(virtualJoystickPrefab);
+                virtualJoystick = joystick.GetComponent<SimpleTouchController>();
+                UIManager.Instance.AddElement(joystick);
                 playerInput = gameObject.AddComponent<InputAdapterMobile>();
                 break;
             default:
@@ -70,7 +72,7 @@ public class InputManager : MonoBehaviour
 
     public SimpleTouchController GetJoystick()
     {
-        return joystick;
+        return virtualJoystick;
     }
     #endregion
 }
