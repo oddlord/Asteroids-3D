@@ -14,7 +14,7 @@ The game is playable on PC and mobile and supports both keyboard/mouse and contr
 
 ### Sprites
 
-* Life icon: [Simple Vector Icons](https://assetstore.unity.com/packages/2d/gui/icons/simple-vector-icons-101218) by [Unruly Games](https://assetstore.unity.com/publishers/32202)
+* Life & settings icons: [Simple Vector Icons](https://assetstore.unity.com/packages/2d/gui/icons/simple-vector-icons-101218) by [Unruly Games](https://assetstore.unity.com/publishers/32202)
 * Joystick sprites: [Joystick Pack](https://assetstore.unity.com/packages/tools/input-management/joystick-pack-107631) by [Fenerax Studios](https://assetstore.unity.com/publishers/32730)
 
 ### Audio

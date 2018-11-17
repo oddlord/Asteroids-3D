@@ -41,14 +41,19 @@ public class UIManager : MonoBehaviour
     private Button newGameButton;
     [SerializeField]
     private Button playAgainButton;
+    [SerializeField]
+    private Slider musicSlider;
+    [SerializeField]
+    private Slider soundEffectsSlider;
 
     [Header("Wait To Select")]
     [SerializeField]
-    private float waitToSelectButton = 0.01f;
+    private float waitToSelectElement = 0.01f;
     #endregion
 
     #region Private attributes
     private LifeIconPool lifeIconPool;
+    private bool initialSFXSliderSet;
     #endregion
 
     #region Start
@@ -56,17 +61,16 @@ public class UIManager : MonoBehaviour
     {
         lifeIconPool = GetComponent<LifeIconPool>();
         lifeIconPool.InitPool();
-    }
-    #endregion
-
-    #region Add Virtual Joystick
-    public void AddVirtualJoystick(GameObject joystick)
-    {
-        joystick.transform.SetParent(gameUI.transform, false);
+        initialSFXSliderSet = false;
     }
     #endregion
 
     #region Update UI
+    public void AddVirtualJoystick(GameObject joystick)
+    {
+        joystick.transform.SetParent(gameUI.transform, false);
+    }
+
     private void DisableAllUI()
     {
         newGamePanel.gameObject.SetActive(false);
@@ -83,6 +87,7 @@ public class UIManager : MonoBehaviour
         {
             case GameManager.GameState.NewGame:
                 newGamePanel.gameObject.SetActive(true);
+                NewGameMenu();
                 break;
             case GameManager.GameState.Settings:
                 settings.gameObject.SetActive(true);
@@ -92,24 +97,53 @@ public class UIManager : MonoBehaviour
                 break;
             case GameManager.GameState.GameOver:
                 gameoverPanel.gameObject.SetActive(true);
+                GameOverMenu();
                 break;
             default:
                 break;
         }
     }
 
-    public void NewGame()
+    private void NewGameMenu()
     {
-        GameManager.Instance.StartNewGame();
         if (!InputManager.Instance.IsMobile())
         {
             StartCoroutine(WaitToSelectButton(newGameButton));
         }
     }
 
-    public void GameOver(int score)
+    public void StartNewGame()
     {
-        finalScoreText.text = "Score: " + score.ToString();
+        GameManager.Instance.StartNewGame();
+    }
+
+    public void OpenSettings()
+    {
+        GameManager.Instance.OpenSettings();
+        musicSlider.value = SoundManager.Instance.GetMusicVolume();
+        initialSFXSliderSet = true;
+        soundEffectsSlider.value = SoundManager.Instance.GetSFXVolume();
+        if (!InputManager.Instance.IsMobile())
+        {
+            StartCoroutine(WaitToSelectSlider(musicSlider));
+        }
+    }
+
+    public void SaveSettings()
+    {
+        SoundManager.Instance.SaveVolumes();
+        GameManager.Instance.CloseSettings();
+    }
+
+    public void CancelSettings()
+    {
+        SoundManager.Instance.RollbackVolumes();
+        GameManager.Instance.CloseSettings();
+    }
+
+    public void GameOverMenu()
+    {
+        finalScoreText.text = "Score: " + ScoreManager.Instance.GetScore();
         if (!InputManager.Instance.IsMobile())
         {
             StartCoroutine(WaitToSelectButton(playAgainButton));
@@ -118,8 +152,14 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator WaitToSelectButton(Button button)
     {
-        yield return new WaitForSeconds(waitToSelectButton);
+        yield return new WaitForSeconds(waitToSelectElement);
         button.Select();
+    }
+
+    private IEnumerator WaitToSelectSlider(Slider slider)
+    {
+        yield return new WaitForSeconds(waitToSelectElement);
+        slider.Select();
     }
     #endregion
 
@@ -127,6 +167,18 @@ public class UIManager : MonoBehaviour
     public LifeIconPool GetLifeIconPool()
     {
         return lifeIconPool;
+    }
+
+    public bool IsInitialSFXSLiderSet()
+    {
+        return initialSFXSliderSet;
+    }
+    #endregion
+
+    #region Setters
+    public void DisableInitialSFXSLiderSet()
+    {
+        initialSFXSliderSet = false;
     }
     #endregion
 }

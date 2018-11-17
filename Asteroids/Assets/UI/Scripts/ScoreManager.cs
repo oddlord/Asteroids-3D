@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Text))]
 public class ScoreManager : MonoBehaviour
 {
     #region Singleton pattern
@@ -23,6 +22,10 @@ public class ScoreManager : MonoBehaviour
     #endregion
 
     #region SerializeField attributes
+    [Header("Score Text")]
+    [SerializeField]
+    private Text scoreText;
+
     [Header("Points rewards")]
     [SerializeField]
     private int pointsForNewLife = 10000;
@@ -30,14 +33,11 @@ public class ScoreManager : MonoBehaviour
 
     #region Private attributes
     private int score;
-    private Text scoreText;
     #endregion
 
     #region Init
     public void Init()
     {
-        scoreText = GetComponent<Text>();
-
         score = 0;
         UpdateScoreText();
     }

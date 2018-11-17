@@ -37,6 +37,10 @@ public class PlayerManager : MonoBehaviour
     private float fragmentsAngularVelocity = 2f;
     [SerializeField]
     private float momentumDampeningFactor = 0.5f;
+
+    [Header("Death")]
+    [SerializeField]
+    private float timeToGameOver = 2f;
     #endregion
 
     #region Private attributes
@@ -134,7 +138,8 @@ public class PlayerManager : MonoBehaviour
         playerShipBroken.transform.position = shipPosition;
         playerShipBroken.transform.rotation = shipRotation;
         playerShipBroken.SetActive(true);
-        playerShipBroken.GetComponent<AudioSource>().Play();
+        AudioSource audioSource = playerShipBroken.GetComponent<AudioSource>();
+        SoundManager.Instance.PlaySFX(audioSource);
 
         for (int i = 0; i < playerShipBroken.transform.childCount; i++)
         {
@@ -158,11 +163,17 @@ public class PlayerManager : MonoBehaviour
         }
         else
         {
-            GameManager.Instance.EnterGameOverMenu();
+            StartCoroutine(WaitToGameOver());
         }
     }
 
-    IEnumerator WaitToRespawn()
+    private IEnumerator WaitToGameOver()
+    {
+        yield return new WaitForSeconds(timeToGameOver);
+        GameManager.Instance.EnterGameOverMenu();
+    }
+
+    private IEnumerator WaitToRespawn()
     {
         yield return new WaitForSeconds(respawnTime);
         Spawn();

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class ProjectileController : MonoBehaviour
 {
     #region SerializeField attributes
@@ -14,6 +15,9 @@ public class ProjectileController : MonoBehaviour
     private void OnEnable()
     {
         StartCoroutine(WaitToDeactivateProjectile());
+
+        AudioSource audioSource = GetComponent<AudioSource>();
+        SoundManager.Instance.PlaySFX(audioSource);
     }
     #endregion
 

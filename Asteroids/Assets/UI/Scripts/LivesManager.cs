@@ -86,7 +86,7 @@ public class LivesManager : MonoBehaviour
     public void AddLife()
     {
         lives++;
-        audioSource.Play();
+        SoundManager.Instance.PlaySFX(audioSource);
         UpdateLivesCount();
     }
     #endregion

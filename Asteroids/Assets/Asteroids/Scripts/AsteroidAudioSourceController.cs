@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class AsteroidAudioSourceController : MonoBehaviour
 {
     #region Private attributes
@@ -12,7 +13,7 @@ public class AsteroidAudioSourceController : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         StartCoroutine(DisableAudioSource(audioSource.clip.length));
-        audioSource.Play();
+        SoundManager.Instance.PlaySFX(audioSource);
     }
     #endregion
 

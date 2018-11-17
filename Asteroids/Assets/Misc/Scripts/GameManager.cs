@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
     private void EnterNewGameMenu()
     {
         UpdateState(GameState.NewGame);
-        MusicManager.Instance.PlayMenuTrack();
+        SoundManager.Instance.PlayMenuTrack();
     }
 
     public void StartNewGame()
@@ -82,15 +82,23 @@ public class GameManager : MonoBehaviour
         LivesManager.Instance.Init();
         AsteroidSpawner.Instance.Init();
         PlayerManager.Instance.Spawn();
-        MusicManager.Instance.PlayRandomGameTrack();
+        SoundManager.Instance.PlayRandomGameTrack();
+    }
+
+    public void OpenSettings()
+    {
+        UpdateState(GameState.Settings);
+    }
+
+    public void CloseSettings()
+    {
+        UpdateState(previousState);
     }
 
     public void EnterGameOverMenu()
     {
-        int finalScore = ScoreManager.Instance.GetScore();
         UpdateState(GameState.GameOver);
-        UIManager.Instance.GameOver(finalScore);
-        MusicManager.Instance.PlayMenuTrack();
+        SoundManager.Instance.PlayMenuTrack();
     }
     #endregion
 
