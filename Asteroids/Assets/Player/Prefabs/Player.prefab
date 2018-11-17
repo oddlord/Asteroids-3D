@@ -656,7 +656,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4222385478587694}
   m_Layer: 0
-  m_Name: ProjectileMagazine
+  m_Name: ProjectileContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10801,7 +10801,7 @@ MonoBehaviour:
   initialPoolAmount: 15
   projectilePrefab: {fileID: 1125163668844688, guid: 848de4ef230fd8848ae384a1b4aae4fa,
     type: 2}
-  projectileMagazine: {fileID: 4222385478587694}
+  container: {fileID: 4222385478587694}
 --- !u!114 &114319001024631986
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -35,7 +35,7 @@ public class InputManager : MonoBehaviour
     enum Device
     {
         PC,
-        MOBILE
+        Mobile
     }
     #endregion
 
@@ -47,10 +47,10 @@ public class InputManager : MonoBehaviour
             case Device.PC:
                 playerInput = gameObject.AddComponent<InputAdapterPC>();
                 break;
-            case Device.MOBILE:
+            case Device.Mobile:
                 GameObject joystick = Instantiate(virtualJoystickPrefab);
                 virtualJoystick = joystick.GetComponent<SimpleTouchController>();
-                UIManager.Instance.AddElement(joystick);
+                UIManager.Instance.AddVirtualJoystick(joystick);
                 playerInput = gameObject.AddComponent<InputAdapterMobile>();
                 break;
             default:
@@ -73,6 +73,11 @@ public class InputManager : MonoBehaviour
     public SimpleTouchController GetJoystick()
     {
         return virtualJoystick;
+    }
+
+    public bool IsMobile()
+    {
+        return device == Device.Mobile;
     }
     #endregion
 }

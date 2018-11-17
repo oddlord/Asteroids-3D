@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (!playerManager.IsDead() && InputManager.Instance.GetShoot())
+        if (CanPerformAction() && InputManager.Instance.GetShoot())
         { 
             Shoot();
         }
@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!playerManager.IsDead())
+        if (CanPerformAction())
         {
             Vector2 movementDirection = InputManager.Instance.GetMovementDirection();
             if (movementDirection.magnitude > 0)
@@ -51,6 +51,15 @@ public class PlayerController : MonoBehaviour
                 ApplyThrust(movementDirection);
             }
         }
+    }
+    #endregion
+
+    #region Utility functions
+    private bool CanPerformAction()
+    {
+        bool playing = GameManager.Instance.GetGameState() == GameManager.GameState.Playing;
+        bool alive = !playerManager.IsDead();
+        return (playing && alive);
     }
     #endregion
 

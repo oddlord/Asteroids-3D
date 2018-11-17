@@ -4,13 +4,15 @@ using UnityEngine;
 public class LifeIconPool : MonoBehaviour
 {
     #region SerializeField attributes
-    [Header("Initial pool amount")]
+    [Header("Pool Settings")]
     [SerializeField]
     private int initialPoolAmount = 4;
 
     [Header("Life Icon")]
     [SerializeField]
     private GameObject lifeIconPrefab;
+    [SerializeField]
+    private GameObject container;
     #endregion
 
     #region Private attributes
@@ -39,7 +41,7 @@ public class LifeIconPool : MonoBehaviour
     private GameObject AddNew()
     {
         GameObject obj = Instantiate(lifeIconPrefab) as GameObject;
-        obj.transform.SetParent(transform, false);
+        obj.transform.SetParent(container.transform, false);
         obj.SetActive(false);
         pool.Add(obj);
         return obj;

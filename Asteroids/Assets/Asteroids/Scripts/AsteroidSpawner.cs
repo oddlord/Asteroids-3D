@@ -53,6 +53,23 @@ public class AsteroidSpawner : MonoBehaviour
         asteroidPool.InitPool();
         asteroidAudioSourcePool = GetComponent<AsteroidAudioSourcePool>();
         asteroidAudioSourcePool.InitPool();
+    }
+    #endregion
+
+    #region init
+    public void Init()
+    {
+        // deactivate any active asteroid
+        // from the previous playthrough
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            GameObject child = transform.GetChild(i).gameObject;
+            if (child.tag == GameManager.Instance.GetAsteroidTag() && child.activeInHierarchy)
+            {
+                child.SetActive(false);
+            }
+        }
+
         spawnedLastCount = 0;
         SpawnAsteroids();
     }

@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(LifeIconPool))]
 public class LivesManager : MonoBehaviour
 {
     #region Singleton pattern
@@ -33,12 +32,12 @@ public class LivesManager : MonoBehaviour
     private int lives;
     #endregion
 
-    #region Start
-    private void Start()
+    #region Init
+    public void Init()
     {
-        lifeIconPool = GetComponent<LifeIconPool>();
-        lifeIconPool.InitPool();
+        lifeIconPool = UIManager.Instance.GetLifeIconPool();
         audioSource = GetComponent<AudioSource>();
+
         lives = initialLives;
         UpdateLivesCount();
     }

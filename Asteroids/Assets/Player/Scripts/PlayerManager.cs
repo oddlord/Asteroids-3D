@@ -83,8 +83,6 @@ public class PlayerManager : MonoBehaviour
                 fragmentPositions[i] = child.transform.localPosition;
             }
         }
-
-        Spawn();
     }
     #endregion
     
@@ -96,7 +94,7 @@ public class PlayerManager : MonoBehaviour
     #endregion
 
     #region Spawning
-    private void Spawn()
+    public void Spawn()
     {
         Vector3 screenCenter = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, -Camera.main.transform.position.z));
         playerShip.transform.position = screenCenter;
@@ -157,6 +155,10 @@ public class PlayerManager : MonoBehaviour
         if (!LivesManager.Instance.IsGameover())
         {
             StartCoroutine(WaitToRespawn());
+        }
+        else
+        {
+            GameManager.Instance.EnterGameOverMenu();
         }
     }
 

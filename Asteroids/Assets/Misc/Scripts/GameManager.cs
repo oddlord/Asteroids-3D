@@ -38,7 +38,68 @@ public class GameManager : MonoBehaviour
     private string shipModuleTag = "ShipModule";
     #endregion
 
+    #region Private attributes
+    private GameState state;
+    private GameState previousState;
+    #endregion
+
+    #region Enums
+    public enum GameState
+    {
+        NewGame,
+        Settings,
+        Playing,
+        GameOver
+    }
+    #endregion
+
+    #region Start
+    private void Start()
+    {
+        state = GameState.NewGame;
+        EnterNewGameMenu();
+    }
+    #endregion
+
+    #region State update
+    private void UpdateState(GameState newState)
+    {
+        previousState = state;
+        state = newState;
+        UIManager.Instance.UpdateUI();
+    }
+
+    private void EnterNewGameMenu()
+    {
+        UpdateState(GameState.NewGame);
+        MusicManager.Instance.PlayMenuTrack();
+    }
+
+    public void StartNewGame()
+    {
+        UpdateState(GameState.Playing);
+        ScoreManager.Instance.Init();
+        LivesManager.Instance.Init();
+        AsteroidSpawner.Instance.Init();
+        PlayerManager.Instance.Spawn();
+        MusicManager.Instance.PlayRandomGameTrack();
+    }
+
+    public void EnterGameOverMenu()
+    {
+        int finalScore = ScoreManager.Instance.GetScore();
+        UpdateState(GameState.GameOver);
+        UIManager.Instance.GameOver(finalScore);
+        MusicManager.Instance.PlayMenuTrack();
+    }
+    #endregion
+
     #region Getters
+    public GameState GetGameState()
+    {
+        return state;
+    }
+
     public string GetPlayerTag()
     {
         return playerTag;

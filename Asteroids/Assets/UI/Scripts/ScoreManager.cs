@@ -33,15 +33,22 @@ public class ScoreManager : MonoBehaviour
     private Text scoreText;
     #endregion
 
-    #region Start
-    private void Start()
+    #region Init
+    public void Init()
     {
-        score = 0;
         scoreText = GetComponent<Text>();
+
+        score = 0;
+        UpdateScoreText();
     }
     #endregion
 
     #region Update Score
+    private void UpdateScoreText()
+    {
+        scoreText.text = score.ToString();
+    }
+
     public void UpdateScore(int points)
     {
         int oldScore = score;
@@ -52,7 +59,14 @@ public class ScoreManager : MonoBehaviour
             LivesManager.Instance.AddLife();
         }
 
-        scoreText.text = score.ToString();
+        UpdateScoreText();
+    }
+    #endregion
+
+    #region Getters
+    public int GetScore()
+    {
+        return score;
     }
     #endregion
 }

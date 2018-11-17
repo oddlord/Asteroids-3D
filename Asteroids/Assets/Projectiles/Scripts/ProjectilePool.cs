@@ -4,7 +4,7 @@ using UnityEngine;
 public class ProjectilePool : MonoBehaviour
 {
     #region SerializeField attributes
-    [Header("Initial pool amount")]
+    [Header("Pool Settings")]
     [SerializeField]
     private int initialPoolAmount = 15;
 
@@ -12,7 +12,7 @@ public class ProjectilePool : MonoBehaviour
     [SerializeField]
     private GameObject projectilePrefab;
     [SerializeField]
-    private Transform projectileMagazine; // this where to have the pooled object under one parent
+    private Transform container;
     #endregion
 
     #region Private attributes
@@ -41,7 +41,7 @@ public class ProjectilePool : MonoBehaviour
     private GameObject AddNew()
     {
         GameObject obj = Instantiate(projectilePrefab) as GameObject;
-        obj.transform.SetParent(projectileMagazine);
+        obj.transform.SetParent(container);
         obj.SetActive(false);
         pool.Add(obj);
         return obj;

@@ -4,7 +4,7 @@ using UnityEngine;
 public class AsteroidPool : MonoBehaviour
 {
     #region SerializeField attributes
-    [Header("Initial pool amount")]
+    [Header("Pool Settings")]
     [SerializeField]
     private int initialPoolAmount = 20;
 
