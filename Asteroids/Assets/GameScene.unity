@@ -205,7 +205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   virtualJoystickPrefab: {fileID: 1876295743771378, guid: e9c9d72eacf77a248b8289b5edf457a0,
     type: 2}
-  device: 0
+  device: 1
 --- !u!4 &148658237
 Transform:
   m_ObjectHideFlags: 0
@@ -2347,7 +2347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 1.7777778
+  m_AspectRatio: 1.5886288
 --- !u!114 &1588856186
 MonoBehaviour:
   m_ObjectHideFlags: 0
