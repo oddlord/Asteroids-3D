@@ -39,6 +39,8 @@ public class SoundManager : MonoBehaviour
     [Header("SFX Preview")]
     [SerializeField]
     private AudioSource sfxPreviewAudioSource;
+    [SerializeField]
+    private float sfxPreviewTimeInterval = 0.5f;
     #endregion
 
     #region Private attributes
@@ -47,6 +49,7 @@ public class SoundManager : MonoBehaviour
     private float sfxVolume;
     private float previousMusicVolume;
     private float previousSFXVolume;
+    private float lastSFXPreviewPlayed;
     #endregion
 
     #region Utility functions
@@ -59,6 +62,8 @@ public class SoundManager : MonoBehaviour
         SaveVolumes();
 
         musicAudioSource.volume = musicVolume;
+
+        lastSFXPreviewPlayed = -sfxPreviewTimeInterval;
     }
     #endregion
 
@@ -116,7 +121,11 @@ public class SoundManager : MonoBehaviour
         SetSFXVolume(slider.value);
         if (!UIManager.Instance.IsInitialSFXSLiderSet())
         {
-            PlaySFX(sfxPreviewAudioSource);
+            if (sfxPreviewTimeInterval <= Time.time - lastSFXPreviewPlayed)
+            {
+                PlaySFX(sfxPreviewAudioSource);
+                lastSFXPreviewPlayed = Time.time;
+            }
         }
         else
         {

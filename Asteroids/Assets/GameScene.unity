@@ -1318,6 +1318,7 @@ MonoBehaviour:
   initialMusicVolume: 0.4
   initialSoundEffectsVolume: 0.5
   sfxPreviewAudioSource: {fileID: 1016150298}
+  sfxPreviewTimeInterval: 0.5
 --- !u!1001 &607761129
 Prefab:
   m_ObjectHideFlags: 0
