@@ -28,7 +28,6 @@ public class LivesManager : MonoBehaviour
     #endregion
 
     #region Private attributes
-    private LifeIconPool lifeIconPool;
     private AudioSource audioSource;
     private int lives;
     #endregion
@@ -36,7 +35,6 @@ public class LivesManager : MonoBehaviour
     #region Init
     public void Init()
     {
-        lifeIconPool = UIManager.Instance.GetLifeIconPool();
         audioSource = GetComponent<AudioSource>();
 
         lives = initialLives;
@@ -62,7 +60,7 @@ public class LivesManager : MonoBehaviour
             {
                 if (activeLifeIcons == lives)
                 {
-                    child.SetActive(false);
+                    PoolsManager.Instance.GetLifeIconsPool().SetAvailable(child);
                 }
                 else
                 {
@@ -73,7 +71,7 @@ public class LivesManager : MonoBehaviour
 
         for (int i = activeLifeIcons; i < lives; i++)
         {
-            GameObject lifeIcon = lifeIconPool.GetAvailable();
+            GameObject lifeIcon = PoolsManager.Instance.GetLifeIconsPool().GetAvailable();
             lifeIcon.SetActive(true);
         }
     }

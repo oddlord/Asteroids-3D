@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(ProjectilePool))]
 public class PlayerController : MonoBehaviour
 {
     #region SerializeField attributes
@@ -17,15 +16,12 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Private attributes
-    private ProjectilePool projectilePool;
     private Rigidbody rb;
     #endregion
 
     #region Start, Update and FixedUpdate
     private void Start()
     {
-        projectilePool = GetComponent<ProjectilePool>();
-        projectilePool.InitPool();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -64,7 +60,7 @@ public class PlayerController : MonoBehaviour
     #region Shooting
     private void Shoot()
     {
-        GameObject projectile = projectilePool.GetAvailable();
+        GameObject projectile = PoolsManager.Instance.GetProjectilesPool().GetAvailable();
         projectile.transform.position = projectileEmitter.transform.position;
         projectile.transform.rotation = projectileEmitter.transform.rotation;
 

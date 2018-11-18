@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(LifeIconPool))]
 public class UIManager : MonoBehaviour
 {
     #region Singleton pattern
@@ -52,15 +51,12 @@ public class UIManager : MonoBehaviour
     #endregion
 
     #region Private attributes
-    private LifeIconPool lifeIconPool;
     private bool initialSFXSliderSet;
     #endregion
 
     #region Start
     private void Start()
     {
-        lifeIconPool = GetComponent<LifeIconPool>();
-        lifeIconPool.InitPool();
         initialSFXSliderSet = false;
     }
     #endregion
@@ -164,11 +160,6 @@ public class UIManager : MonoBehaviour
     #endregion
 
     #region Getters
-    public LifeIconPool GetLifeIconPool()
-    {
-        return lifeIconPool;
-    }
-
     public bool IsInitialSFXSLiderSet()
     {
         return initialSFXSliderSet;

@@ -24,13 +24,13 @@ public class ProjectileController : MonoBehaviour
     IEnumerator WaitToDeactivateProjectile()
     {
         yield return new WaitForSeconds(projectileLife);
-        gameObject.SetActive(false);
+        PoolsManager.Instance.GetProjectilesPool().SetAvailable(gameObject);
     }
 
     public void AsteroidHit()
     {
         CancelInvoke("WaitToDeactivateProjectile");
-        gameObject.SetActive(false);
+        PoolsManager.Instance.GetProjectilesPool().SetAvailable(gameObject);
     }
     #endregion
 }

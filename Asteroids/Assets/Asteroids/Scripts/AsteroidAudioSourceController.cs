@@ -21,7 +21,7 @@ public class AsteroidAudioSourceController : MonoBehaviour
     private IEnumerator DisableAudioSource(float clipLength)
     {
         yield return new WaitForSeconds(clipLength);
-        gameObject.SetActive(false);
+        PoolsManager.Instance.GetAsteroidAudioSourcesPool().SetAvailable(gameObject);
     }
     #endregion
 }

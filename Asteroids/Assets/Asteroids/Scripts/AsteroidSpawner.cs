@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(AsteroidPool))]
-[RequireComponent(typeof(AsteroidAudioSourcePool))]
 public class AsteroidSpawner : MonoBehaviour
 {
     #region Singleton pattern
@@ -42,19 +40,7 @@ public class AsteroidSpawner : MonoBehaviour
     #endregion
 
     #region Private attributes
-    AsteroidPool asteroidPool;
-    AsteroidAudioSourcePool asteroidAudioSourcePool;
     private int spawnedLastCount;
-    #endregion
-
-    #region Start
-    void Start()
-    {
-        asteroidPool = GetComponent<AsteroidPool>();
-        asteroidPool.InitPool();
-        asteroidAudioSourcePool = GetComponent<AsteroidAudioSourcePool>();
-        asteroidAudioSourcePool.InitPool();
-    }
     #endregion
 
     #region init
@@ -67,19 +53,12 @@ public class AsteroidSpawner : MonoBehaviour
             GameObject child = transform.GetChild(i).gameObject;
             if (child.tag == GameManager.Instance.GetAsteroidTag() && child.activeInHierarchy)
             {
-                child.SetActive(false);
+                PoolsManager.Instance.GetAsteroidsPool().SetAvailable(child);
             }
         }
 
         spawnedLastCount = 0;
         SpawnAsteroids();
-    }
-    #endregion
-
-    #region Getters
-    public GameObject GetAvailableAsteroidAudioSource()
-    {
-        return asteroidAudioSourcePool.GetAvailable();
     }
     #endregion
 
@@ -92,7 +71,7 @@ public class AsteroidSpawner : MonoBehaviour
 
     private void SpawnAsteroid(Vector3 spawnPosition, AsteroidData asteroidData)
     {
-        GameObject asteroid = asteroidPool.GetAvailable();
+        GameObject asteroid = PoolsManager.Instance.GetAsteroidsPool().GetAvailable();
         asteroid.transform.position = spawnPosition;
         asteroid.transform.rotation = Random.rotation;
 

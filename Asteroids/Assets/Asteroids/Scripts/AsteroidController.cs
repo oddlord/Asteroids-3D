@@ -30,13 +30,13 @@ public class AsteroidController : MonoBehaviour
     #region Explode
     public void Explode()
     {
-        GameObject asteroidAudioSource = AsteroidSpawner.Instance.GetAvailableAsteroidAudioSource();
+        GameObject asteroidAudioSource = PoolsManager.Instance.GetAsteroidAudioSourcesPool().GetAvailable();
         asteroidAudioSource.transform.position = transform.position;
         asteroidAudioSource.SetActive(true);
 
         AsteroidSpawner.Instance.SpawnFragments(transform.position, asteroidData);
         ScoreManager.Instance.UpdateScore(asteroidData.GetPoints());
-        gameObject.SetActive(false);
+        PoolsManager.Instance.GetAsteroidsPool().SetAvailable(gameObject);
     }
     #endregion
 }
