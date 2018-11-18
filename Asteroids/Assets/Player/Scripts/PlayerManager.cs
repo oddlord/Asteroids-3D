@@ -109,7 +109,7 @@ public class PlayerManager : MonoBehaviour
         StartCoroutine(SpawnBlink());
     }
 
-    IEnumerator SpawnBlink()
+    private IEnumerator SpawnBlink()
     {
         Renderer rend = playerShip.GetComponent<Renderer>();
         float endTime = Time.time + spawnInvulnerabilityTime;

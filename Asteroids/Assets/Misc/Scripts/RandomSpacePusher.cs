@@ -16,16 +16,16 @@ public class RandomSpacePusher : MonoBehaviour
     #endregion
 
     #region Setters
-    public void SetRandomPush(float force, float aVel)
+    public void SetRandomPush(float pushForce, float angularVelocity)
     {
-        pushForce = force;
-        angularVelocity = aVel;
+        this.pushForce = pushForce;
+        this.angularVelocity = angularVelocity;
     }
 
-    public void SetMomentum(Vector3 m, float mDampeningFactor)
+    public void SetMomentum(Vector3 momentum, float momentumDampeningFactor)
     {
-        momentum = m;
-        momentumDampeningFactor = mDampeningFactor;
+        this.momentum = momentum;
+        this.momentumDampeningFactor = momentumDampeningFactor;
     }
     #endregion
 

@@ -83,7 +83,7 @@ public class AsteroidSpawner : MonoBehaviour
         randomPusher.SetRandomPush(pushForce, angularVelocity);
         randomPusher.GivePush();
         AsteroidController asteroidController = asteroid.GetComponent<AsteroidController>();
-        asteroidController.Initialise(asteroidData);
+        asteroidController.Init(asteroidData);
     }
 
     private void SpawnAsteroids()

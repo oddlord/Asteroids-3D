@@ -27,7 +27,7 @@ public class InputManager : MonoBehaviour
     #endregion
 
     #region Private attributes
-    private InputAdapter playerInput;
+    private IInputAdapter playerInput;
     private SimpleTouchController virtualJoystick;
     #endregion
 
@@ -45,13 +45,13 @@ public class InputManager : MonoBehaviour
 		switch (device)
         {
             case Device.PC:
-                playerInput = gameObject.AddComponent<InputAdapterPC>();
+                playerInput = new InputAdapterPC();
                 break;
             case Device.Mobile:
                 GameObject joystick = Instantiate(virtualJoystickPrefab);
                 virtualJoystick = joystick.GetComponent<SimpleTouchController>();
                 UIManager.Instance.AddVirtualJoystick(joystick);
-                playerInput = gameObject.AddComponent<InputAdapterMobile>();
+                playerInput = new InputAdapterMobile();
                 break;
             default:
                 break;

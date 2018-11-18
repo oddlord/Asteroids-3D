@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 
-public class InputAdapterPC : InputAdapter
+public class InputAdapterPC : IInputAdapter
 {
     #region Get Inputs
-    public override Vector2 GetMovementInput()
+    public Vector2 GetMovementInput()
     {
         return new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
     }
 
-    public override bool GetShootInput()
+    public bool GetShootInput()
     {
         return Input.GetButtonDown("Fire1");
     }

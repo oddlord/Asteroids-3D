@@ -18,7 +18,7 @@ public class Pool : MonoBehaviour
     #region Constructors
     public Pool(int initialAmount, Transform container, GameObject prefab)
     {
-        this.singlePrefab = true;
+        singlePrefab = true;
         this.prefab = prefab;
 
         InitPool(initialAmount, container);
@@ -26,7 +26,7 @@ public class Pool : MonoBehaviour
 
     public Pool(int initialAmount, Transform container, List<GameObject> prefabs)
     {
-        this.singlePrefab = false;
+        singlePrefab = false;
         this.prefabs = prefabs;
 
         InitPool(initialAmount, container);

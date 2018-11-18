@@ -58,7 +58,8 @@ public class SoundManager : MonoBehaviour
         musicAudioSource = GetComponent<AudioSource>();
         musicAudioSource.loop = true;
 
-        SetVolumes(initialMusicVolume, initialSoundEffectsVolume);
+        SetMusicVolume(initialMusicVolume);
+        SetSFXVolume(initialSoundEffectsVolume);
         SaveVolumes();
 
         musicAudioSource.volume = musicVolume;
@@ -133,26 +134,21 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    private void SetMusicVolume(float mVol)
+    private void SetMusicVolume(float musicVolume)
     {
-        musicVolume = Mathf.Clamp01(mVol);
-        musicAudioSource.volume = musicVolume;
+        this.musicVolume = Mathf.Clamp01(musicVolume);
+        musicAudioSource.volume = this.musicVolume;
     }
 
-    private void SetSFXVolume(float sfxVol)
+    private void SetSFXVolume(float sfxVolume)
     {
-        sfxVolume = Mathf.Clamp01(sfxVol);
-    }
-
-    private void SetVolumes(float mVol, float sfxVol)
-    {
-        SetMusicVolume(mVol);
-        SetSFXVolume(sfxVol);
+        this.sfxVolume = Mathf.Clamp01(sfxVolume);
     }
 
     public void RollbackVolumes()
     {
-        SetVolumes(previousMusicVolume, previousSFXVolume);
+        SetMusicVolume(previousMusicVolume);
+        SetSFXVolume(previousSFXVolume);
     }
 
     public void SaveVolumes()

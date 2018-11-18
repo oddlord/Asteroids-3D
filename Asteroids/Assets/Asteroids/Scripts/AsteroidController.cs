@@ -15,16 +15,12 @@ public class AsteroidController : MonoBehaviour
     }
     #endregion
 
-    #region Initialise
-    public void Initialise(AsteroidData ad)
+    #region Init
+    public void Init(AsteroidData ad)
     {
         asteroidData = ad;
         transform.localScale = originalLocalScale * asteroidData.GetScale();
     }
-    #endregion
-
-    #region Getters
-
     #endregion
 
     #region Explode

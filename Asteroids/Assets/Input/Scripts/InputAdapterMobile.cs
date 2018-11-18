@@ -1,25 +1,25 @@
 ﻿using UnityEngine;
 
-public class InputAdapterMobile : InputAdapter
+public class InputAdapterMobile : IInputAdapter
 {
     #region Private attributes
     private SimpleTouchController joystick;
     #endregion
 
-    #region Start
-    private void Awake()
+    #region Constructor
+    public InputAdapterMobile()
     {
         joystick = InputManager.Instance.GetJoystick();
     }
     #endregion
 
     #region Get Inputs
-    public override Vector2 GetMovementInput()
+    public Vector2 GetMovementInput()
     {
         return new Vector2(joystick.GetTouchPosition.x, joystick.GetTouchPosition.y);
     }
 
-    public override bool GetShootInput()
+    public bool GetShootInput()
     {
         for (int i = 0; i < Input.touchCount; i++)
         {
