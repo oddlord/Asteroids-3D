@@ -2,6 +2,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(AsteroidPool))]
+[RequireComponent(typeof(AsteroidAudioSourcePool))]
 public class AsteroidSpawner : MonoBehaviour
 {
     #region Singleton pattern

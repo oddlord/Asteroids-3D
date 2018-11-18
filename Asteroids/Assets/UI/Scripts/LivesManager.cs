@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class LivesManager : MonoBehaviour
 {
     #region Singleton pattern

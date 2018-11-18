@@ -205,7 +205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   virtualJoystickPrefab: {fileID: 1876295743771378, guid: e9c9d72eacf77a248b8289b5edf457a0,
     type: 2}
-  device: 1
+  device: 0
 --- !u!4 &148658237
 Transform:
   m_ObjectHideFlags: 0

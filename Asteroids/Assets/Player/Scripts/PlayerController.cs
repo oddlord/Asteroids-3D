@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Private attributes
-    private PlayerManager playerManager;
     private ProjectilePool projectilePool;
     private Rigidbody rb;
     #endregion
@@ -25,7 +24,6 @@ public class PlayerController : MonoBehaviour
     #region Start, Update and FixedUpdate
     private void Start()
     {
-        playerManager = GetComponentInParent<PlayerManager>();
         projectilePool = GetComponent<ProjectilePool>();
         projectilePool.InitPool();
         rb = GetComponent<Rigidbody>();
@@ -58,7 +56,7 @@ public class PlayerController : MonoBehaviour
     private bool CanPerformAction()
     {
         bool playing = GameManager.Instance.GetGameState() == GameManager.GameState.Playing;
-        bool alive = !playerManager.IsDead();
+        bool alive = !PlayerManager.Instance.IsDead();
         return (playing && alive);
     }
     #endregion
