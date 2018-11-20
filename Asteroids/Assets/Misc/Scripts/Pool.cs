@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Pool : MonoBehaviour
+public class Pool
 {
     #region Private attributes
     private int initialAmount;
@@ -53,12 +53,12 @@ public class Pool : MonoBehaviour
         GameObject obj;
         if (singlePrefab)
         {
-            obj = Instantiate(prefab) as GameObject;
+            obj = GameObject.Instantiate(prefab) as GameObject;
         }
         else
         {
             int prefabIdx = Random.Range(0, prefabs.Count);
-            obj = Instantiate(prefabs[prefabIdx]) as GameObject;
+            obj = GameObject.Instantiate(prefabs[prefabIdx]) as GameObject;
         }
         obj.transform.SetParent(container, false);
         obj.SetActive(false);

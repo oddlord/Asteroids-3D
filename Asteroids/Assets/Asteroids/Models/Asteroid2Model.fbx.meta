@@ -1,16 +1,14 @@
 fileFormatVersion: 2
-guid: 5d695ef33b4ea09439ed402d1abdf29b
+guid: e79875ac3f32c9747857e55e1a4f6bc9
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: Material__space_ship_test_color_png
+    2100000: ROCK
     2300000: //RootNode
     3300000: //RootNode
-    4300000: ship
-    7400000: Default Take
-    9500000: //RootNode
+    4300000: rock.062
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -85,7 +83,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
