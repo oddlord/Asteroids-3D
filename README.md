@@ -1,4 +1,4 @@
-# Unity - Asteroids 3D
+# Asteroids 3D
 
 This is a 3D clone of the classic arcade game [Asteroids](https://en.wikipedia.org/wiki/Asteroids_(video_game)) made from scratch in Unity.
 
